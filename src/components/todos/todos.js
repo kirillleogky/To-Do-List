@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export default function addTodos() {
   return (
@@ -12,5 +12,5 @@ export default function addTodos() {
         <span className="todos_block-trash"></span>
       </li>
     </ul>
-  )
+  );
 }
