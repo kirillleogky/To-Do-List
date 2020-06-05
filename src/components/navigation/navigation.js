@@ -1,9 +1,9 @@
-import React from "react"
+import React from "react";
 
 export default function addNavigation() {
   return (
     <nav className="todos_block-nav nav_block">
-      <ul>
+      <ul className="nav_block-list">
         <li>
           <button className="nav_block-save">Save</button>
         </li>
@@ -11,9 +11,9 @@ export default function addNavigation() {
           <button className="nav_block-clear">Clear</button>
         </li>
         <li>
-          <button className="nav_block-showTips">?</button>
+          <button className="nav_block-showTips">Tips</button>
         </li>
       </ul>
     </nav>
-  )
+  );
 }

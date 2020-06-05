@@ -1,9 +1,9 @@
-import React, { Fragment } from "react"
-import "./App.css"
-import Overlay from "./components/overlay/overlay"
-import AddTodoInput from "./components/addTodoInput/addTodoInput"
-import AddTodos from "./components/todos/addTodos"
-import Navigation from "./components/navigation/navigation"
+import React, { Fragment } from "react";
+import "./App.scss";
+import Overlay from "./components/overlay/overlay";
+import AddTodoInput from "./components/addTodoInput/addTodoInput";
+import AddTodos from "./components/todos/addTodos";
+import Navigation from "./components/navigation/navigation";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
       </div>
       <Overlay />
     </Fragment>
-  )
+  );
 }
 
-export default App
+export default App;

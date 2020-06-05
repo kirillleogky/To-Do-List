@@ -1,0 +1,15 @@
+@import "./components/addTodoInput/addTodoInput";
+@import "./components/todos/addTodos";
+@import "./components/navigation/navigation";
+@import "./components/overlay/overlay";
+
+.todo_block {
+  text-align: center;
+  height: 740px;
+  max-width: 400px;
+  margin: 0 auto;
+
+  &-title {
+    margin: 10%;
+  }
+}
