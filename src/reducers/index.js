@@ -6,7 +6,7 @@ const second = {
 };
 
 const third = {
-  data: [],
+  data: [{ label: "Wash Kitchen" }, { label: "Go To Theater" }],
 };
 
 function firstData(state = first, action) {
