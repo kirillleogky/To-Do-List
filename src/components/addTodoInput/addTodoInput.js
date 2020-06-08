@@ -1,44 +1,36 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import actions from "../../actions";
 
-class TodoInputBtn extends Component {
-  addTodo = () => {
-    const todo = {
-      label: `${this.props.firstData}`,
-    };
-    this.props.setThirdData([...this.props.thirdData, todo]);
-    this.props.setFirstData("");
-  };
-  render() {
-    return (
-      <form
-        onSubmit={this.addTodo}
-        className="todo_block-add_todo add_todo_block"
-      >
-        <input
-          type="text"
-          placeholder="Add List"
-          className="add_todo_block-input"
-          id="input"
-          value={this.props.firstData}
-          onChange={(e) => this.props.setFirstData(e.target.value)}
-        ></input>
-        <button type="submit" className="add_todo_block-btn">
-          Add
-        </button>
-      </form>
-    );
-  }
+function addTodoInputBtn(props) {
+  return (
+    <form
+      onSubmit={() => props.onAddTodo()}
+      className="todo_block-add_todo add_todo_block"
+    >
+      <input
+        type="text"
+        placeholder="Add List"
+        className="add_todo_block-input"
+        id="input"
+        value={props.firstData}
+        onChange={(e) => props.setFirstData(e.target.value)}
+      ></input>
+      <button type="submit" className="add_todo_block-btn">
+        Add
+      </button>
+    </form>
+  );
 }
 
-TodoInputBtn.propTypes = {
+addTodoInputBtn.propTypes = {
   firstData: PropTypes.string,
   secondData: PropTypes.object,
   thirdData: PropTypes.array,
   setFirstData: PropTypes.func,
   setThirdData: PropTypes.func,
+  onAddTodo: PropTypes.func,
 };
 
 const mapStateToProps = (store) => {
@@ -57,4 +49,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoInputBtn);
+export default connect(mapStateToProps, mapDispatchToProps)(addTodoInputBtn);
