@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CreateTodo from "../addTodoInput/createTodo";
+import CreateTodo from "./createTodo";
 
 export default function addTodos(props) {
   return (
