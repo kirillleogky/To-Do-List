@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 function createTodo(props) {
-  return props.thirdData.map((elem, index) => (
+  const currTodos = props.todos();
+  return currTodos.map((elem, index) => (
     <li key={index}>
       <span
         className={`todos_block-text ${

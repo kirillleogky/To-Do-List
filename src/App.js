@@ -9,6 +9,16 @@ import AddTodos from "./components/todos/todos";
 import Navigation from "./components/navigation/navigation";
 
 function App(props) {
+  function filterTodos() {
+    if (props.fourthData === "Done") {
+      return props.thirdData.filter((item) => item.isComplete);
+    } else if (props.fourthData === "Undone") {
+      return props.thirdData.filter((item) => !item.isComplete);
+    } else if (props.fourthData === "All") {
+      return props.thirdData;
+    }
+  }
+
   function doneTodo(text) {
     const currIndex = props.thirdData.findIndex((todo) => todo.label === text);
     const oldTodo = props.thirdData[currIndex];
@@ -43,8 +53,12 @@ function App(props) {
           <i id="pensil" className="todo_block-title_img"></i>
         </h1>
         <AddTodoInput onAddTodo={addTodo} />
-        <AddTodos onDeleteTodo={deleteTodo} onDoneTodo={doneTodo} />
-        <Navigation />
+        <AddTodos
+          onDeleteTodo={deleteTodo}
+          onDoneTodo={doneTodo}
+          todos={filterTodos}
+        />
+        <Navigation onFilterTodos={filterTodos} />
       </div>
       <Overlay />
     </Fragment>
@@ -54,6 +68,7 @@ function App(props) {
 App.propTypes = {
   firstData: PropTypes.string,
   thirdData: PropTypes.array,
+  fourthData: PropTypes.string,
   setFirstData: PropTypes.func,
   setThirdData: PropTypes.func,
 };
@@ -62,6 +77,7 @@ const mapStateToProps = (store) => {
   return {
     firstData: store.firstData.data,
     thirdData: store.thirdData.data,
+    fourthData: store.fourthData.data,
   };
 };
 

@@ -8,6 +8,7 @@ export default function addTodos(props) {
       <CreateTodo
         onDeleteTodo={props.onDeleteTodo}
         onDoneTodo={props.onDoneTodo}
+        todos={props.todos}
       />
     </ul>
   );
@@ -16,4 +17,5 @@ export default function addTodos(props) {
 addTodos.propTypes = {
   onDoneTodo: PropTypes.func,
   onDeleteTodo: PropTypes.func,
+  todos: PropTypes.func,
 };
