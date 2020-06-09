@@ -7,8 +7,8 @@ const second = {
 
 const third = {
   data: JSON.parse(localStorage.getItem("todos")) || [
-    { label: "Wash Kitchen" },
-    { label: "Go To Theater" },
+    { label: "Wash Kitchen", isComplete: false },
+    { label: "Go To Theater", isComplete: false },
   ],
 };
 

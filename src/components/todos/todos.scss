@@ -21,4 +21,15 @@
       );
     }
   }
+  &-text {
+    width: 100%;
+    &_done {
+      background: linear-gradient(
+        79deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(251, 113, 113, 1) 45%,
+        rgba(255, 199, 199, 1) 100%
+      );
+    }
+  }
 }

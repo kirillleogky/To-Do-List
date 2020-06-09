@@ -5,7 +5,14 @@ import { connect } from "react-redux";
 function createTodo(props) {
   return props.thirdData.map((elem, index) => (
     <li key={index}>
-      <span className="todos_block-text">{elem.label}</span>
+      <span
+        className={`todos_block-text ${
+          elem.isComplete ? "todos_block-text_done" : ""
+        }`}
+        onClick={() => props.onDoneTodo(elem.label)}
+      >
+        {elem.label}
+      </span>
       <button
         className="todos_block-trash"
         onClick={() => props.onDeleteTodo(elem.label)}

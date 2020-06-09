@@ -9,6 +9,16 @@ import AddTodos from "./components/todos/todos";
 import Navigation from "./components/navigation/navigation";
 
 function App(props) {
+  function doneTodo(text) {
+    const currIndex = props.thirdData.findIndex((todo) => todo.label === text);
+    const oldTodo = props.thirdData[currIndex];
+    const doneValue = !oldTodo.isComplete;
+    const newTodoDone = { ...oldTodo, isComplete: doneValue };
+    const todoStart = props.thirdData.slice(0, currIndex);
+    const todoEnd = props.thirdData.slice(currIndex + 1);
+    props.setThirdData([...todoStart, newTodoDone, ...todoEnd]);
+  }
+
   function deleteTodo(text) {
     const delIndex = props.thirdData.findIndex((todo) => todo.label === text);
     const todoStart = props.thirdData.slice(0, delIndex);
@@ -19,6 +29,7 @@ function App(props) {
   function addTodo() {
     const todo = {
       label: `${props.firstData}`,
+      isComplete: false,
     };
     props.setThirdData([...props.thirdData, todo]);
     props.setFirstData("");
@@ -32,7 +43,7 @@ function App(props) {
           <i id="pensil" className="todo_block-title_img"></i>
         </h1>
         <AddTodoInput onAddTodo={addTodo} />
-        <AddTodos onDeleteTodo={deleteTodo} />
+        <AddTodos onDeleteTodo={deleteTodo} onDoneTodo={doneTodo} />
         <Navigation />
       </div>
       <Overlay />
