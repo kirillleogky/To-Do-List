@@ -1,6 +1,7 @@
 const first = {
   data: "",
 };
+
 const second = {
   data: false,
 };
@@ -10,6 +11,10 @@ const third = {
     { label: "Wash Kitchen", isComplete: false },
     { label: "Go To Theater", isComplete: false },
   ],
+};
+
+const fourth = {
+  data: "All",
 };
 
 function firstData(state = first, action) {
@@ -42,8 +47,19 @@ function thirdData(state = third, action) {
   }
 }
 
+function fourthData(state = fourth, action) {
+  switch (action.type) {
+    case "CHANGE_FOURTH_DATA":
+      return { ...state, data: action.payload };
+
+    default:
+      return state;
+  }
+}
+
 export default {
   firstData,
   secondData,
   thirdData,
+  fourthData,
 };
