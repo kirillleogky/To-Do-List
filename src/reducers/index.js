@@ -2,11 +2,14 @@ const first = {
   data: "",
 };
 const second = {
-  data: {},
+  data: false,
 };
 
 const third = {
-  data: [{ label: "Wash Kitchen" }, { label: "Go To Theater" }],
+  data: JSON.parse(localStorage.getItem("todos")) || [
+    { label: "Wash Kitchen" },
+    { label: "Go To Theater" },
+  ],
 };
 
 function firstData(state = first, action) {

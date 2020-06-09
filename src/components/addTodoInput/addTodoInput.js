@@ -26,7 +26,7 @@ function addTodoInputBtn(props) {
 
 addTodoInputBtn.propTypes = {
   firstData: PropTypes.string,
-  secondData: PropTypes.object,
+  secondData: PropTypes.bool,
   thirdData: PropTypes.array,
   setFirstData: PropTypes.func,
   setThirdData: PropTypes.func,
