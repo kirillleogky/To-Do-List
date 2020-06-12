@@ -13,25 +13,34 @@ function addNavigation(props) {
       </li>
     );
   }
-
   return (
     <nav className="todos_block-nav nav_block">
       <ul className="nav_block-list">
         {addButton(
           "nav_block-all_todos",
-          () => props.setFourthData("All"),
+          () => props.setSixthData("All"),
           "All Todos"
         )}
 
         {addButton(
           "nav_block-done_todos",
-          () => props.setFourthData("Done"),
+          () => {
+            props.setFourthData(
+              props.thirdData.filter((item) => item.isComplete)
+            );
+            props.setSixthData("Done");
+          },
           "Done Todos"
         )}
 
         {addButton(
           "nav_block-undone_todos",
-          () => props.setFourthData("Undone"),
+          () => {
+            props.setFifthData(
+              props.thirdData.filter((item) => !item.isComplete)
+            );
+            props.setSixthData("Undone");
+          },
           "Undone Todos"
         )}
 
@@ -66,16 +75,16 @@ function addNavigation(props) {
 }
 
 addNavigation.propTypes = {
-  secondData: PropTypes.bool,
   thirdData: PropTypes.array,
   setSecondData: PropTypes.func,
   setThirdData: PropTypes.func,
   setFourthData: PropTypes.func,
+  setFifthData: PropTypes.func,
+  setSixthData: PropTypes.func,
 };
 
 const mapStateToProps = (store) => {
   return {
-    secondData: store.secondData.data,
     thirdData: store.thirdData.data,
   };
 };
@@ -84,7 +93,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setSecondData: (data) => dispatch(actions.setSecondData(data)),
     setThirdData: (data) => dispatch(actions.setThirdData(data)),
+    setSixthData: (data) => dispatch(actions.setSixthData(data)),
     setFourthData: (data) => dispatch(actions.setFourthData(data)),
+    setFifthData: (data) => dispatch(actions.setFifthData(data)),
   };
 };
 

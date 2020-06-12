@@ -6,7 +6,7 @@ import actions from "../../actions";
 function addTodoInputBtn(props) {
   return (
     <form
-      onSubmit={() => props.onAddTodo()}
+      onSubmit={(e) => props.onAddTodo(e)}
       className="todo_block-add_todo add_todo_block"
     >
       <input

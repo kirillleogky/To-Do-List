@@ -2,23 +2,17 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import actions from "./actions";
+import { DragDropContext } from "react-beautiful-dnd";
 import "./App.scss";
 import Overlay from "./components/overlay/overlay";
 import AddTodoInput from "./components/addTodoInput/addTodoInput";
 import AddTodos from "./components/todos/todos";
 import Navigation from "./components/navigation/navigation";
+import onDragEnd from "./utils/onDragEnd";
+import onFilterTodos from "./utils/filterTodos";
 
 function App(props) {
-  function filterTodos() {
-    if (props.fourthData === "Done") {
-      return props.thirdData.filter((item) => item.isComplete);
-    } else if (props.fourthData === "Undone") {
-      return props.thirdData.filter((item) => !item.isComplete);
-    } else if (props.fourthData === "All") {
-      return props.thirdData;
-    }
-  }
-
+  const filterTodos = onFilterTodos(props);
   function doneTodo(text) {
     const currIndex = props.thirdData.findIndex((todo) => todo.label === text);
     const oldTodo = props.thirdData[currIndex];
@@ -26,7 +20,14 @@ function App(props) {
     const newTodoDone = { ...oldTodo, isComplete: doneValue };
     const todoStart = props.thirdData.slice(0, currIndex);
     const todoEnd = props.thirdData.slice(currIndex + 1);
-    props.setThirdData([...todoStart, newTodoDone, ...todoEnd]);
+    // Update All, Done, Undone Todos
+    const { payload: newTodos } = props.setThirdData([
+      ...todoStart,
+      newTodoDone,
+      ...todoEnd,
+    ]);
+    props.setFourthData(newTodos.filter((item) => item.isComplete));
+    props.setFifthData(newTodos.filter((item) => !item.isComplete));
   }
 
   function deleteTodo(text) {
@@ -36,7 +37,8 @@ function App(props) {
     props.setThirdData([...todoStart, ...todoEnd]);
   }
 
-  function addTodo() {
+  function addTodo(event) {
+    event.preventDefault();
     const todo = {
       label: `${props.firstData}`,
       isComplete: false,
@@ -53,12 +55,16 @@ function App(props) {
           <i id="pensil" className="todo_block-title_img"></i>
         </h1>
         <AddTodoInput onAddTodo={addTodo} />
-        <AddTodos
-          onDeleteTodo={deleteTodo}
-          onDoneTodo={doneTodo}
-          todos={filterTodos}
-        />
-        <Navigation onFilterTodos={filterTodos} />
+        <DragDropContext
+          onDragEnd={(result) => onDragEnd(result, filterTodos, props)}
+        >
+          <AddTodos
+            onDeleteTodo={deleteTodo}
+            onDoneTodo={doneTodo}
+            todos={filterTodos}
+          />
+        </DragDropContext>
+        <Navigation />
       </div>
       <Overlay />
     </Fragment>
@@ -68,9 +74,13 @@ function App(props) {
 App.propTypes = {
   firstData: PropTypes.string,
   thirdData: PropTypes.array,
-  fourthData: PropTypes.string,
+  fourthData: PropTypes.array,
+  fifthData: PropTypes.array,
+  sixthData: PropTypes.string,
   setFirstData: PropTypes.func,
   setThirdData: PropTypes.func,
+  setFourthData: PropTypes.func,
+  setFifthData: PropTypes.func,
 };
 
 const mapStateToProps = (store) => {
@@ -78,6 +88,8 @@ const mapStateToProps = (store) => {
     firstData: store.firstData.data,
     thirdData: store.thirdData.data,
     fourthData: store.fourthData.data,
+    fifthData: store.fifthData.data,
+    sixthData: store.sixthData.data,
   };
 };
 
@@ -85,6 +97,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setFirstData: (data) => dispatch(actions.setFirstData(data)),
     setThirdData: (data) => dispatch(actions.setThirdData(data)),
+    setFourthData: (data) => dispatch(actions.setFourthData(data)),
+    setFifthData: (data) => dispatch(actions.setFifthData(data)),
   };
 };
 
