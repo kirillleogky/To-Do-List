@@ -14,6 +14,14 @@ const third = {
 };
 
 const fourth = {
+  data: [],
+};
+
+const fifth = {
+  data: [],
+};
+
+const sixth = {
   data: "All",
 };
 
@@ -57,9 +65,31 @@ function fourthData(state = fourth, action) {
   }
 }
 
+function fifthData(state = fifth, action) {
+  switch (action.type) {
+    case "CHANGE_FIFTH_DATA":
+      return { ...state, data: action.payload };
+
+    default:
+      return state;
+  }
+}
+
+function sixthData(state = sixth, action) {
+  switch (action.type) {
+    case "CHANGE_SIXTH_DATA":
+      return { ...state, data: action.payload };
+
+    default:
+      return state;
+  }
+}
+
 export default {
   firstData,
   secondData,
   thirdData,
   fourthData,
+  fifthData,
+  sixthData,
 };
