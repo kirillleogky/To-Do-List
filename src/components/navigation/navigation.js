@@ -61,14 +61,6 @@ function addNavigation(props) {
           },
           "Clear"
         )}
-
-        {addButton(
-          "nav_block-showTips",
-          () => {
-            props.setSecondData(true);
-          },
-          "Tips"
-        )}
       </ul>
     </nav>
   );

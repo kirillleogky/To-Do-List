@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import actions from "./actions";
 import { DragDropContext } from "react-beautiful-dnd";
 import "./App.scss";
-import Overlay from "./components/overlay/overlay";
+import Head from "./components/head/head";
 import AddTodoInput from "./components/addTodoInput/addTodoInput";
 import AddTodos from "./components/todos/todos";
 import Navigation from "./components/navigation/navigation";
@@ -50,23 +50,23 @@ function App(props) {
   return (
     <Fragment>
       <div id="todo" className="todo_block">
-        <h1 className="todo_block-title">
-          To Do List
-          <i id="pensil" className="todo_block-title_img"></i>
-        </h1>
-        <AddTodoInput onAddTodo={addTodo} />
-        <DragDropContext
-          onDragEnd={(result) => onDragEnd(result, filterTodos, props)}
-        >
-          <AddTodos
-            onDeleteTodo={deleteTodo}
-            onDoneTodo={doneTodo}
-            todos={filterTodos}
-          />
-        </DragDropContext>
-        <Navigation />
+        <header>
+          <Head />
+        </header>
+        <main>
+          <Navigation />
+          <AddTodoInput onAddTodo={addTodo} />
+          <DragDropContext
+            onDragEnd={(result) => onDragEnd(result, filterTodos, props)}
+          >
+            <AddTodos
+              onDeleteTodo={deleteTodo}
+              onDoneTodo={doneTodo}
+              todos={filterTodos}
+            />
+          </DragDropContext>
+        </main>
       </div>
-      <Overlay />
     </Fragment>
   );
 }

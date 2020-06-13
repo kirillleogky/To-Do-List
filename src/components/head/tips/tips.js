@@ -1,19 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import actions from "../../actions";
+import actions from "../../../actions";
 
-function addOverlay(props) {
-  const isActiveOverlay = props.secondData ? "overlay_block-active" : "";
+function addTips(props) {
+  const isActiveTips = props.secondData ? "tips_block-active" : "";
   return (
-    <div className={`todos_block-overlay overlay_block ${isActiveOverlay}`}>
+    <div className={`todo_block-head-tips tips_block ${isActiveTips}`}>
       <button
-        className="overlay_block-close_tips"
+        className="tips_block-close_tips"
         onClick={() => props.setSecondData(false)}
       >
         x
       </button>
-      <ul className="overlay_block-tips">
+      <ul className="tips_block-tips">
         <li>To hide or show the input field, click on the button</li>
         <li>
           To add a to-do list, write text in the input field and press Enter or
@@ -29,7 +29,7 @@ function addOverlay(props) {
   );
 }
 
-addOverlay.propTypes = {
+addTips.propTypes = {
   secondData: PropTypes.bool,
   setSecondData: PropTypes.func,
 };
@@ -46,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(addOverlay);
+export default connect(mapStateToProps, mapDispatchToProps)(addTips);
