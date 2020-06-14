@@ -2,12 +2,9 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import actions from "./actions";
-import { DragDropContext } from "react-beautiful-dnd";
 import "./App.scss";
 import Head from "./components/head/head";
-import AddTodoInput from "./components/addTodoInput/addTodoInput";
-import AddTodos from "./components/todos/todos";
-import Navigation from "./components/navigation/navigation";
+import Main from "./components/main/main";
 import onDragEnd from "./utils/onDragEnd";
 import onFilterTodos from "./utils/filterTodos";
 
@@ -57,17 +54,13 @@ function App(props) {
           <Head />
         </header>
         <main>
-          <Navigation />
-          <AddTodoInput onAddTodo={addTodo} />
-          <DragDropContext
+          <Main
+            onAddTodo={addTodo}
             onDragEnd={(result) => onDragEnd(result, filterTodos, props)}
-          >
-            <AddTodos
-              onDeleteTodo={deleteTodo}
-              onDoneTodo={doneTodo}
-              todos={filterTodos}
-            />
-          </DragDropContext>
+            onDeleteTodo={deleteTodo}
+            onDoneTodo={doneTodo}
+            todos={filterTodos}
+          />
         </main>
       </div>
     </Fragment>
