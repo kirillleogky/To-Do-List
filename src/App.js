@@ -49,7 +49,10 @@ function App(props) {
 
   return (
     <Fragment>
-      <div id="todo" className="todo_block">
+      <div
+        id={`${props.secondData ? "focus_on_tips" : ""}`}
+        className="todo_block"
+      >
         <header>
           <Head />
         </header>
@@ -73,6 +76,7 @@ function App(props) {
 
 App.propTypes = {
   firstData: PropTypes.string,
+  secondData: PropTypes.bool,
   thirdData: PropTypes.array,
   fourthData: PropTypes.array,
   fifthData: PropTypes.array,
@@ -86,6 +90,7 @@ App.propTypes = {
 const mapStateToProps = (store) => {
   return {
     firstData: store.firstData.data,
+    secondData: store.secondData.data,
     thirdData: store.thirdData.data,
     fourthData: store.fourthData.data,
     fifthData: store.fifthData.data,
