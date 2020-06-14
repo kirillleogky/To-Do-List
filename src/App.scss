@@ -1,15 +1,31 @@
 @import "./components/addTodoInput/addTodoInput";
 @import "./components/todos/todos";
 @import "./components/navigation/navigation";
-@import "./components/overlay/overlay";
+@import "./components/head/head";
+@import "./utils/fonts/fonts";
 
-.todo_block {
-  text-align: center;
-  height: 740px;
-  max-width: 400px;
+%center {
+  width: 840px;
   margin: 0 auto;
+}
 
-  &-title {
-    margin: 10%;
-  }
+header {
+  height: 180px;
+  background: linear-gradient(
+      0deg,
+      rgba(143, 103, 210, 0.1),
+      rgba(143, 103, 210, 0.1)
+    ),
+    linear-gradient(
+      90deg,
+      #a180ff 0%,
+      #e680ff 33.85%,
+      #ffbd80 69.79%,
+      #ff7e7e 100%
+    );
+}
+
+main {
+  text-align: center;
+  @extend %center;
 }

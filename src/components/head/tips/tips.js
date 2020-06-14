@@ -4,15 +4,13 @@ import { connect } from "react-redux";
 import actions from "../../../actions";
 
 function addTips(props) {
-  const isActiveTips = props.secondData ? "tips_block-active" : "";
+  const isActiveTips = props.secondData ? "tips_block-active" : "tips_block";
   return (
-    <div className={`todo_block-head-tips tips_block ${isActiveTips}`}>
-      <button
+    <div className={`todo_block-head-tips ${isActiveTips}`}>
+      <div
         className="tips_block-close_tips"
-        onClick={() => props.setSecondData(false)}
-      >
-        x
-      </button>
+        onClick={() => props.setSecondData(!props.secondData)}
+      />
       <ul className="tips_block-tips">
         <li>To hide or show the input field, click on the button</li>
         <li>
