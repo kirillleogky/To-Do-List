@@ -44,6 +44,10 @@ function App(props) {
     props.setFirstData("");
   }
 
+  // Set current todos into localStorage
+  localStorage.clear();
+  localStorage.setItem("todos", JSON.stringify(props.thirdData));
+
   return (
     <Fragment>
       <div
