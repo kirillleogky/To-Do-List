@@ -1,6 +1,104 @@
+.nav_btn {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  width: 100%;
+  height: 80%;
+  color: rgba(195, 183, 213, 1);
+}
+
+.btn-Clear {
+  background-image: url("../../../utils/img/Trash-Icon.svg");
+  background-repeat: no-repeat;
+  background-position: 17% 40%;
+  padding-left: 30px;
+}
+
+.active_nav_btn {
+  box-shadow: 0 8px 18px rgba(52, 32, 91, 0.1), 0 0 2px rgba(52, 32, 91, 0.1);
+  z-index: 1;
+}
+
+.del_all_borders {
+  & .nav_btn {
+    border-right: 1px solid rgba(255, 255, 255, 0) !important;
+  }
+}
+
+.del_undone_borders {
+  & .nav_btn {
+    border-left: 1px solid rgba(255, 255, 255, 0) !important;
+  }
+}
+
 .nav_block {
+  margin-bottom: 3%;
   &-list {
     display: flex;
     justify-content: space-between;
+    padding: 3% 6% 0% 6%;
+    &_todo_type {
+      width: 490px;
+      display: flex;
+      &_btn {
+        width: 25%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        border-radius: 6px;
+        & .btn-All {
+          border-right: 1px solid rgba(247, 244, 249, 1);
+        }
+        & .btn-Undone {
+          border-left: 1px solid rgba(247, 244, 249, 1);
+        }
+        &:hover .nav_btn {
+          color: rgba(130, 114, 153, 1);
+        }
+        &:active .nav_btn,
+        &:active {
+          background: rgba(247, 244, 249, 1);
+        }
+      }
+    }
+  }
+  &-clear {
+    display: flex;
+    align-items: center;
+    width: 104px;
+    z-index: 1;
+    &:hover {
+      box-shadow: 0 8px 18px rgba(52, 32, 91, 0.1),
+        0 0 2px rgba(52, 32, 91, 0.1);
+      border-radius: 6px;
+    }
+    &:active .btn-Clear,
+    &:active {
+      background-color: rgba(247, 244, 249, 1);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .nav_block-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav_block-list_todo_type {
+    justify-content: center;
+    width: 100%;
+    &_btn {
+      width: 30%;
+    }
+  }
+  .nav_block-clear {
+    margin-top: 5%;
+    width: 30%;
+    & button {
+      border-radius: 6px;
+      background-image: none;
+      padding: 1%;
+    }
   }
 }

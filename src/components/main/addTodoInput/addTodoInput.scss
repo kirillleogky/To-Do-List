@@ -1,5 +1,95 @@
 .add_todo_block {
-  text-align: center;
-  width: 840px;
-  margin: 0 auto;
+  height: 65px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0% 5% 0% 5%;
+  border-bottom: 1px solid rgba(247, 244, 249, 1);
+  &-icon {
+    background-image: url("../../../utils/img/Input-Icon.svg"),
+      url("../../../utils/img/Input-Background-Icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 100%;
+    &:hover {
+      cursor: pointer;
+    }
+    &_active {
+      background-image: url("../../../utils/img/Undone-Icon.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 40px;
+      height: 100%;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.4;
+      }
+    }
+  }
+  &-input {
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0);
+    width: 78%;
+  }
+  &_active {
+    padding: 0%;
+    margin: 0% 5% 0% 5%;
+  }
+  &-btn {
+    position: relative;
+    width: 64px;
+    height: 40px;
+    &::before {
+      z-index: 1;
+      content: "";
+      background: linear-gradient(
+          0deg,
+          rgba(143, 103, 210, 0.1),
+          rgba(143, 103, 210, 0.1)
+        ),
+        linear-gradient(
+          90deg,
+          #a180ff 0%,
+          #e680ff 33.85%,
+          #ffbd80 69.79%,
+          #ff7e7e 100%
+        );
+      filter: blur(16px);
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    & div {
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 4px 8px rgba(52, 32, 91, 0.1), 0 0 2px rgba(52, 32, 91, 0.1);
+      border-radius: 6px;
+      background-color: rgba(255, 255, 255, 1);
+      position: relative;
+      z-index: 10;
+      line-height: 40px;
+      font-family: Inter, sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      &:active {
+        background-color: rgba(247, 244, 249, 1);
+        color: rgba(185, 174, 252, 1);
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .add_todo_block-btn {
+    width: 50px;
+    height: 35px;
+    & div {
+      line-height: 35px;
+      font-size: 15px;
+    }
+  }
 }

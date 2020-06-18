@@ -1,3 +1,25 @@
 @import "./addTodoInput/addTodoInput";
 @import "./todos/todos";
 @import "./navigation/navigation";
+
+.todo_block-main {
+  width: 59%;
+  height: 640px;
+  margin-top: -63px;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 30px 64px rgba(52, 32, 91, 0.1), 0 0 4px rgba(52, 32, 91, 0.1),
+    inset 0 2px 1px rgba(117, 101, 89, 0.1);
+  border-radius: 10px;
+}
+
+@media (max-width: 800px) {
+  .todo_block-main {
+    width: 79%;
+  }
+}
+
+@media (max-width: 480px) {
+  .todo_block-main {
+    width: 95%;
+  }
+}

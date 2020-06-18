@@ -5,5 +5,6 @@ const actions = {
   setFourthData: (data) => ({ type: "CHANGE_FOURTH_DATA", payload: data }),
   setFifthData: (data) => ({ type: "CHANGE_FIFTH_DATA", payload: data }),
   setSixthData: (data) => ({ type: "CHANGE_SIXTH_DATA", payload: data }),
+  setSeventhData: (data) => ({ type: "CHANGE_SEVENTH_DATA", payload: data }),
 };
 export default actions;

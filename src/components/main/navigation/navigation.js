@@ -4,55 +4,60 @@ import { connect } from "react-redux";
 import actions from "../../../actions";
 
 function addNavigation(props) {
+  let allBorders = "del_all_borders";
+  let undoneBorders = "del_undone_borders";
+  if (props.sixthData === "All") {
+    undoneBorders = "";
+    allBorders = "del_all_borders";
+  } else if (props.sixthData === "Undone") {
+    allBorders = "";
+    undoneBorders = "del_undone_borders";
+  }
   function addButton(className, func, text) {
+    let activeTodo = "";
+    if (props.sixthData === text) {
+      activeTodo = "active_nav_btn";
+    }
     return (
-      <li>
-        <button className={`${className}`} onClick={func}>
+      <li className={`${className} ${activeTodo}`}>
+        <button type="button" onClick={func} className={`nav_btn btn-${text}`}>
           {text}
         </button>
       </li>
     );
   }
   return (
-    <nav className="todos_block-nav nav_block">
+    <nav className="todos_block-main-nav nav_block">
       <ul className="nav_block-list">
-        {addButton(
-          "nav_block-all_todos",
-          () => props.setSixthData("All"),
-          "All Todos"
-        )}
+        <div className="nav_block-list_todo_type">
+          {addButton(
+            `nav_block-list_todo_type_btn ${allBorders}`,
+            () => props.setSixthData("All"),
+            "All"
+          )}
 
-        {addButton(
-          "nav_block-done_todos",
-          () => {
-            props.setFourthData(
-              props.thirdData.filter((item) => item.isComplete)
-            );
-            props.setSixthData("Done");
-          },
-          "Done Todos"
-        )}
+          {addButton(
+            "nav_block-list_todo_type_btn",
+            () => {
+              props.setFourthData(
+                props.thirdData.filter((item) => item.isComplete)
+              );
+              props.setSixthData("Done");
+            },
+            "Done"
+          )}
 
-        {addButton(
-          "nav_block-undone_todos",
-          () => {
-            props.setFifthData(
-              props.thirdData.filter((item) => !item.isComplete)
-            );
-            props.setSixthData("Undone");
-          },
-          "Undone Todos"
-        )}
-
-        {addButton(
-          "nav_block-save",
-          () => {
-            localStorage.clear();
-            localStorage.setItem("todos", JSON.stringify(props.thirdData));
-          },
-          "Save"
-        )}
-
+          {addButton(
+            `nav_block-list_todo_type_btn ${undoneBorders}`,
+            () => {
+              props.setFifthData(
+                props.thirdData.filter((item) => !item.isComplete)
+              );
+              props.setSixthData("Undone");
+            },
+            "Undone"
+          )}
+        </div>
         {addButton(
           "nav_block-clear",
           () => {
@@ -68,6 +73,7 @@ function addNavigation(props) {
 
 addNavigation.propTypes = {
   thirdData: PropTypes.array,
+  sixthData: PropTypes.string,
   setSecondData: PropTypes.func,
   setThirdData: PropTypes.func,
   setFourthData: PropTypes.func,
@@ -78,6 +84,7 @@ addNavigation.propTypes = {
 const mapStateToProps = (store) => {
   return {
     thirdData: store.thirdData.data,
+    sixthData: store.sixthData.data,
   };
 };
 

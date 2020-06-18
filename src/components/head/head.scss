@@ -10,8 +10,8 @@
 }
 
 .todo_block-head {
-  @extend %center;
-
+  width: 80%;
+  margin: 0 auto;
   padding-top: 32px;
   display: flex;
   align-items: flex-end;
@@ -22,6 +22,7 @@
   &-title {
     color: rgba(255, 255, 255, 1);
     width: 30%;
+    text-align: end;
   }
   &-tips_btn {
     @extend %tips_btn;
@@ -31,6 +32,27 @@
     }
     &_active {
       @extend %tips_btn;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .todo_block-head {
+    width: 75%;
+  }
+  .todo_block-head-title {
+    width: 40%;
+  }
+  .nav_block-clear button {
+    background-size: 27%;
+  }
+}
+
+@media (max-width: 800px) {
+  .todo_block-head {
+    width: 95%;
+    &-title {
+      width: 254px;
     }
   }
 }

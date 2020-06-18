@@ -40,7 +40,7 @@ function App(props) {
       label: `${props.firstData}`,
       isComplete: false,
     };
-    props.setThirdData([...props.thirdData, todo]);
+    props.setThirdData([todo, ...props.thirdData]);
     props.setFirstData("");
   }
 

@@ -8,33 +8,35 @@ function createTodo(props) {
   const index = props.index;
   return (
     <Draggable draggableId={`draggable_todo_${index}`} index={index}>
-      {(provided) => (
-        <li
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          <span
-            className={`todos_block-text ${
-              elem.isComplete ? "todos_block-text_done" : ""
-            }`}
+      {(provided, snapshot) => {
+        const draggableElem = snapshot.isDragging ? "draggable_todo" : "";
+        return (
+          <li
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            className={`todos_block-todo ${draggableElem}`}
           >
-            {elem.label}
-          </span>
-          <button
-            className="todos_block-trash"
-            onClick={() => props.onDeleteTodo(elem.label)}
-          >
-            x
-          </button>
-          <button
-            className="todos_block-done"
-            onClick={() => props.onDoneTodo(elem.label)}
-          >
-            ✓
-          </button>
-        </li>
-      )}
+            <div
+              className={`todos_block-icon ${
+                elem.isComplete ? "todos_block-icon_done" : ""
+              }`}
+              onClick={() => props.onDoneTodo(elem.label)}
+            />
+            <span
+              className={`todos_block-text ${
+                elem.isComplete ? "todos_block-text_done" : ""
+              }`}
+            >
+              {elem.label}
+            </span>
+            <div
+              className="todos_block-trash"
+              onClick={() => props.onDeleteTodo(elem.label)}
+            />
+            <div className="todos_block-dnd" {...provided.dragHandleProps} />
+          </li>
+        );
+      }}
     </Draggable>
   );
 }

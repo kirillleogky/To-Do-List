@@ -1,37 +1,70 @@
 .todos_block {
   height: 500px;
   overflow: auto;
-
-  & li {
-    background: linear-gradient(
-      79deg,
-      rgba(255, 0, 114, 1) 3%,
-      rgba(255, 139, 0, 1) 100%
-    );
+  padding: 0% 5% 0% 5%;
+  &-todo {
+    height: 65px;
     display: flex;
-    justify-content: space-between;
-    text-align: start;
-    cursor: pointer;
-
-    &:nth-child(2n) {
-      background: linear-gradient(
-        79deg,
-        rgba(0, 243, 255, 1) 3%,
-        rgba(0, 59, 255, 1) 100%
-      );
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid rgba(247, 244, 249, 1);
+  }
+  &-icon {
+    background-image: url("../../../utils/img/Undone-Icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 100%;
+    &_done {
+      background-image: url("../../../utils/img/Done-Icon.svg");
+    }
+    &:hover {
+      cursor: pointer;
     }
   }
   &-text {
-    width: 100%;
+    width: 83%;
+    overflow: auto;
     &_done {
-      background: linear-gradient(
-        79deg,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(251, 113, 113, 1) 45%,
-        rgba(255, 199, 199, 1) 100%
-      );
-      text-decoration: line-through;
-      color: rgba(160, 160, 160, 1);
+      color: rgba(6, 142, 96, 0.3);
     }
   }
+  &-trash {
+    background-image: url("../../../utils/img/Trash-Icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 25px;
+    height: 50%;
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(52, 32, 91, 0.1),
+        0 0 2px rgba(52, 32, 91, 0.1);
+      border-radius: 6px;
+    }
+  }
+  &-dnd {
+    background-image: url("../../../utils/img/DND-Icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 19px;
+    height: 46%;
+    border-radius: 6px;
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(52, 32, 91, 0.1),
+        0 0 2px rgba(52, 32, 91, 0.1);
+    }
+    &:active {
+      background: rgba(247, 244, 249, 1) url("../../../utils/img/DND-Icon.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+}
+
+.draggable_todo {
+  box-shadow: 0 10px 64px rgba(52, 32, 91, 0.1), 0 0 8px rgba(52, 32, 91, 0.1);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 1);
+  border-bottom: 1px solid rgba(247, 244, 249, 0) !important;
 }
