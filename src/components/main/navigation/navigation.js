@@ -6,16 +6,16 @@ import actions from "../../../actions";
 function addNavigation(props) {
   let allBorders = "del_all_borders";
   let undoneBorders = "del_undone_borders";
-  if (props.sixthData === "All") {
+  if (props.todosType === "All") {
     undoneBorders = "";
     allBorders = "del_all_borders";
-  } else if (props.sixthData === "Undone") {
+  } else if (props.todosType === "Undone") {
     allBorders = "";
     undoneBorders = "del_undone_borders";
   }
   function addButton(className, func, text) {
     let activeTodo = "";
-    if (props.sixthData === text) {
+    if (props.todosType === text) {
       activeTodo = "active_nav_btn";
     }
     return (
@@ -32,17 +32,17 @@ function addNavigation(props) {
         <div className="nav_block-list_todo_type">
           {addButton(
             `nav_block-list_todo_type_btn ${allBorders}`,
-            () => props.setSixthData("All"),
+            () => props.setTodosType("All"),
             "All"
           )}
 
           {addButton(
             "nav_block-list_todo_type_btn",
             () => {
-              props.setFourthData(
-                props.thirdData.filter((item) => item.isComplete)
+              props.setDoneTodos(
+                props.todoList.filter((item) => item.isComplete)
               );
-              props.setSixthData("Done");
+              props.setTodosType("Done");
             },
             "Done"
           )}
@@ -50,10 +50,10 @@ function addNavigation(props) {
           {addButton(
             `nav_block-list_todo_type_btn ${undoneBorders}`,
             () => {
-              props.setFifthData(
-                props.thirdData.filter((item) => !item.isComplete)
+              props.setUndoneTodos(
+                props.todoList.filter((item) => !item.isComplete)
               );
-              props.setSixthData("Undone");
+              props.setTodosType("Undone");
             },
             "Undone"
           )}
@@ -62,7 +62,7 @@ function addNavigation(props) {
           "nav_block-clear",
           () => {
             localStorage.clear();
-            props.setThirdData([]);
+            props.setTodoList([]);
           },
           "Clear"
         )}
@@ -72,29 +72,27 @@ function addNavigation(props) {
 }
 
 addNavigation.propTypes = {
-  thirdData: PropTypes.array,
-  sixthData: PropTypes.string,
-  setSecondData: PropTypes.func,
-  setThirdData: PropTypes.func,
-  setFourthData: PropTypes.func,
-  setFifthData: PropTypes.func,
-  setSixthData: PropTypes.func,
+  todoList: PropTypes.array,
+  todosType: PropTypes.string,
+  setTodoList: PropTypes.func,
+  setDoneTodos: PropTypes.func,
+  setUndoneTodos: PropTypes.func,
+  setTodosType: PropTypes.func,
 };
 
 const mapStateToProps = (store) => {
   return {
-    thirdData: store.thirdData.data,
-    sixthData: store.sixthData.data,
+    todoList: store.todoList.data,
+    todosType: store.todosType.data,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSecondData: (data) => dispatch(actions.setSecondData(data)),
-    setThirdData: (data) => dispatch(actions.setThirdData(data)),
-    setSixthData: (data) => dispatch(actions.setSixthData(data)),
-    setFourthData: (data) => dispatch(actions.setFourthData(data)),
-    setFifthData: (data) => dispatch(actions.setFifthData(data)),
+    setTodoList: (data) => dispatch(actions.setTodoList(data)),
+    setDoneTodos: (data) => dispatch(actions.setDoneTodos(data)),
+    setUndoneTodos: (data) => dispatch(actions.setUndoneTodos(data)),
+    setTodosType: (data) => dispatch(actions.setTodosType(data)),
   };
 };
 

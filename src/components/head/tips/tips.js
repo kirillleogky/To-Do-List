@@ -4,12 +4,12 @@ import { connect } from "react-redux";
 import actions from "../../../actions";
 
 function addTips(props) {
-  const isActiveTips = props.secondData ? "tips_block-active" : "tips_block";
+  const isActiveTips = props.isShowTips ? "tips_block-active" : "tips_block";
   return (
     <div className={`todo_block-head-tips ${isActiveTips}`}>
       <div
         className="tips_block-close_tips"
-        onClick={() => props.setSecondData(!props.secondData)}
+        onClick={() => props.setIsShowTips(!props.isShowTips)}
       />
       <ul className="tips_block-tips">
         <li>To hide or show the input field, click on the button</li>
@@ -28,19 +28,19 @@ function addTips(props) {
 }
 
 addTips.propTypes = {
-  secondData: PropTypes.bool,
-  setSecondData: PropTypes.func,
+  isShowTips: PropTypes.bool,
+  setIsShowTips: PropTypes.func,
 };
 
 const mapStateToProps = (store) => {
   return {
-    secondData: store.secondData.data,
+    isShowTips: store.isShowTips.data,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSecondData: (data) => dispatch(actions.setSecondData(data)),
+    setIsShowTips: (data) => dispatch(actions.setIsShowTips(data)),
   };
 };
 

@@ -5,14 +5,14 @@ import actions from "../../actions";
 import Tips from "./tips/tips";
 
 function Head(props) {
-  const isActiveTips = props.secondData
+  const isActiveTips = props.isShowTips
     ? "todo_block-head-tips_btn_active"
     : "todo_block-head-tips_btn";
   return (
     <div className="todo_block-head">
       <h1 className="todo_block-head-title"> to-doooooo </h1>
       <div
-        onClick={() => props.setSecondData(!props.secondData)}
+        onClick={() => props.setIsShowTips(!props.isShowTips)}
         className={`${isActiveTips}`}
       >
         <Tips />
@@ -22,19 +22,19 @@ function Head(props) {
 }
 
 Head.propTypes = {
-  secondData: PropTypes.bool,
-  setSecondData: PropTypes.func,
+  isShowTips: PropTypes.bool,
+  setIsShowTips: PropTypes.func,
 };
 
 const mapStateToProps = (store) => {
   return {
-    secondData: store.secondData.data,
+    isShowTips: store.isShowTips.data,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSecondData: (data) => dispatch(actions.setSecondData(data)),
+    setIsShowTips: (data) => dispatch(actions.setIsShowTips(data)),
   };
 };
 

@@ -11,47 +11,47 @@ import onFilterTodos from "./utils/filterTodos";
 function App(props) {
   const filterTodos = onFilterTodos(props);
   function doneTodo(text) {
-    const currIndex = props.thirdData.findIndex((todo) => todo.label === text);
-    const oldTodo = props.thirdData[currIndex];
+    const currIndex = props.todoList.findIndex((todo) => todo.label === text);
+    const oldTodo = props.todoList[currIndex];
     const doneValue = !oldTodo.isComplete;
     const newTodoDone = { ...oldTodo, isComplete: doneValue };
-    const todoStart = props.thirdData.slice(0, currIndex);
-    const todoEnd = props.thirdData.slice(currIndex + 1);
+    const todoStart = props.todoList.slice(0, currIndex);
+    const todoEnd = props.todoList.slice(currIndex + 1);
     // Update All, Done, Undone Todos
-    const { payload: newTodos } = props.setThirdData([
+    const { payload: newTodos } = props.setTodoList([
       ...todoStart,
       newTodoDone,
       ...todoEnd,
     ]);
-    props.setFourthData(newTodos.filter((item) => item.isComplete));
-    props.setFifthData(newTodos.filter((item) => !item.isComplete));
+    props.setDoneTodos(newTodos.filter((item) => item.isComplete));
+    props.setUndoneTodos(newTodos.filter((item) => !item.isComplete));
   }
 
   function deleteTodo(text) {
-    const delIndex = props.thirdData.findIndex((todo) => todo.label === text);
-    const todoStart = props.thirdData.slice(0, delIndex);
-    const todoEnd = props.thirdData.slice(delIndex + 1);
-    props.setThirdData([...todoStart, ...todoEnd]);
+    const delIndex = props.todoList.findIndex((todo) => todo.label === text);
+    const todoStart = props.todoList.slice(0, delIndex);
+    const todoEnd = props.todoList.slice(delIndex + 1);
+    props.setTodoList([...todoStart, ...todoEnd]);
   }
 
   function addTodo(event) {
     event.preventDefault();
     const todo = {
-      label: `${props.firstData}`,
+      label: `${props.inputText}`,
       isComplete: false,
     };
-    props.setThirdData([todo, ...props.thirdData]);
-    props.setFirstData("");
+    props.setTodoList([todo, ...props.todoList]);
+    props.setInputText("");
   }
 
   // Set current todos into localStorage
   localStorage.clear();
-  localStorage.setItem("todos", JSON.stringify(props.thirdData));
+  localStorage.setItem("todos", JSON.stringify(props.todoList));
 
   return (
     <Fragment>
       <div
-        id={`${props.secondData ? "focus_on_tips" : ""}`}
+        id={`${props.isShowTips ? "focus_on_tips" : ""}`}
         className="todo_block"
       >
         <header>
@@ -72,35 +72,35 @@ function App(props) {
 }
 
 App.propTypes = {
-  firstData: PropTypes.string,
-  secondData: PropTypes.bool,
-  thirdData: PropTypes.array,
-  fourthData: PropTypes.array,
-  fifthData: PropTypes.array,
-  sixthData: PropTypes.string,
-  setFirstData: PropTypes.func,
-  setThirdData: PropTypes.func,
-  setFourthData: PropTypes.func,
-  setFifthData: PropTypes.func,
+  inputText: PropTypes.string,
+  isShowTips: PropTypes.bool,
+  todoList: PropTypes.array,
+  doneTodos: PropTypes.array,
+  undoneTodos: PropTypes.array,
+  todosType: PropTypes.string,
+  setInputText: PropTypes.func,
+  setTodoList: PropTypes.func,
+  setDoneTodos: PropTypes.func,
+  setUndoneTodos: PropTypes.func,
 };
 
 const mapStateToProps = (store) => {
   return {
-    firstData: store.firstData.data,
-    secondData: store.secondData.data,
-    thirdData: store.thirdData.data,
-    fourthData: store.fourthData.data,
-    fifthData: store.fifthData.data,
-    sixthData: store.sixthData.data,
+    inputText: store.inputText.data,
+    isShowTips: store.isShowTips.data,
+    todoList: store.todoList.data,
+    doneTodos: store.doneTodos.data,
+    undoneTodos: store.undoneTodos.data,
+    todosType: store.todosType.data,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setFirstData: (data) => dispatch(actions.setFirstData(data)),
-    setThirdData: (data) => dispatch(actions.setThirdData(data)),
-    setFourthData: (data) => dispatch(actions.setFourthData(data)),
-    setFifthData: (data) => dispatch(actions.setFifthData(data)),
+    setInputText: (data) => dispatch(actions.setInputText(data)),
+    setTodoList: (data) => dispatch(actions.setTodoList(data)),
+    setDoneTodos: (data) => dispatch(actions.setDoneTodos(data)),
+    setUndoneTodos: (data) => dispatch(actions.setUndoneTodos(data)),
   };
 };
 

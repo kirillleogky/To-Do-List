@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { Draggable } from "react-beautiful-dnd";
 
-function createTodo(props) {
+export default function createTodo(props) {
   const elem = props.todo;
   const index = props.index;
   return (
@@ -42,17 +41,8 @@ function createTodo(props) {
 }
 
 createTodo.propTypes = {
-  thirdData: PropTypes.array,
   todo: PropTypes.object,
   index: PropTypes.number,
   onDeleteTodo: PropTypes.func,
   onDoneTodo: PropTypes.func,
 };
-
-const mapStateToProps = (store) => {
-  return {
-    thirdData: store.thirdData.data,
-  };
-};
-
-export default connect(mapStateToProps)(createTodo);

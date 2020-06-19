@@ -29,63 +29,63 @@ const seventh = {
   data: "",
 };
 
-function firstData(state = first, action) {
+function inputText(state = first, action) {
   switch (action.type) {
-    case "CHANGE_FIRST_DATA":
+    case "CHANGE_INPUT_TEXT_DATA":
       return { ...state, data: action.payload };
     default:
       return state;
   }
 }
 
-function secondData(state = second, action) {
+function isShowTips(state = second, action) {
   switch (action.type) {
-    case "CHANGE_SECOND_DATA":
+    case "CHANGE_SHOW_TIPS_DATA":
       return { ...state, data: action.payload };
     default:
       return state;
   }
 }
 
-function thirdData(state = third, action) {
+function todoList(state = third, action) {
   switch (action.type) {
-    case "CHANGE_THIRD_DATA":
+    case "CHANGE_TODO_LIST_DATA":
       return { ...state, data: action.payload };
     default:
       return state;
   }
 }
 
-function fourthData(state = fourth, action) {
+function doneTodos(state = fourth, action) {
   switch (action.type) {
-    case "CHANGE_FOURTH_DATA":
+    case "CHANGE_DONE_TODOS_DATA":
       return { ...state, data: action.payload };
     default:
       return state;
   }
 }
 
-function fifthData(state = fifth, action) {
+function undoneTodos(state = fifth, action) {
   switch (action.type) {
-    case "CHANGE_FIFTH_DATA":
+    case "CHANGE_UNDONE_TODOS_DATA":
       return { ...state, data: action.payload };
     default:
       return state;
   }
 }
 
-function sixthData(state = sixth, action) {
+function todosType(state = sixth, action) {
   switch (action.type) {
-    case "CHANGE_SIXTH_DATA":
+    case "CHANGE_TODOS_TYPE_DATA":
       return { ...state, data: action.payload };
     default:
       return state;
   }
 }
 
-function seventhData(state = seventh, action) {
+function inputActiveClass(state = seventh, action) {
   switch (action.type) {
-    case "CHANGE_SEVENTH_DATA":
+    case "CHANGE_INPUT_ACTIVE_CLASS_DATA":
       return { ...state, data: action.payload };
     default:
       return state;
@@ -93,11 +93,11 @@ function seventhData(state = seventh, action) {
 }
 
 export default {
-  firstData,
-  secondData,
-  thirdData,
-  fourthData,
-  fifthData,
-  sixthData,
-  seventhData,
+  inputText,
+  isShowTips,
+  todoList,
+  doneTodos,
+  undoneTodos,
+  todosType,
+  inputActiveClass,
 };

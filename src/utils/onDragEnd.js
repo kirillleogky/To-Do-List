@@ -11,11 +11,11 @@ export default function onDragEnd(result, newTodos, data) {
   }
   const oldTodo = newTodos.splice(source.index, 1);
   newTodos.splice(destination.index, 0, oldTodo[0]);
-  if (data.sixthData === "Done") {
-    data.setFourthData([...newTodos]);
-  } else if (data.sixthData === "Undone") {
-    data.setFifthData([...newTodos]);
-  } else if (data.sixthData === "All") {
-    data.setThirdData([...newTodos]);
+  if (data.todosType === "Done") {
+    data.setDoneTodos([...newTodos]);
+  } else if (data.todosType === "Undone") {
+    data.setUndoneTodos([...newTodos]);
+  } else if (data.todosType === "All") {
+    data.setTodoList([...newTodos]);
   }
 }
