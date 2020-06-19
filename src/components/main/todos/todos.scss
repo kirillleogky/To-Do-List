@@ -17,13 +17,14 @@
     height: 100%;
     &_done {
       background-image: url("../../../utils/img/Done-Icon.svg");
+      background-position: 55% 50%;
     }
     &:hover {
       cursor: pointer;
     }
   }
   &-text {
-    width: 83%;
+    width: 86.5%;
     overflow: auto;
     &_done {
       color: rgba(6, 142, 96, 0.3);

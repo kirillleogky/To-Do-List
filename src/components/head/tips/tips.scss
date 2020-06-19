@@ -23,7 +23,7 @@
   &-active {
     @extend %tips;
 
-    z-index: 3;
+    z-index: 30;
     display: flex;
     &::before {
       position: absolute;
@@ -60,8 +60,9 @@
   .tips_block-active {
     width: 240px;
     height: 310.76px;
+    left: -160%;
     &::before {
-      right: 73.8%;
+      right: 66.6%;
       bottom: 91%;
       width: 27px;
     }

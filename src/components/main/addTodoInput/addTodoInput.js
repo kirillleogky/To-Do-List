@@ -38,7 +38,10 @@ function addTodoInputBtn(props) {
         onChange={(e) => props.setFirstData(e.target.value)}
         onClick={changeInputLogo}
       ></input>
-      <button type="submit" className="add_todo_block-btn">
+      <button
+        type="submit"
+        className={`add_todo_block-btn add_todo_block-btn${props.seventhData}`}
+      >
         <div>Add</div>
       </button>
     </form>
