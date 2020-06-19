@@ -26,6 +26,9 @@
   &-text {
     width: 86.5%;
     overflow: auto;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 500;
     &_done {
       color: rgba(6, 142, 96, 0.3);
     }

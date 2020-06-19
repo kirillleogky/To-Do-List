@@ -5,6 +5,7 @@
   align-items: center;
   padding: 0% 5% 0% 5%;
   border-bottom: 1px solid rgba(247, 244, 249, 1);
+  transition: 0.5s;
   &-icon {
     background-image: url("../../../utils/img/Input-Icon.svg"),
       url("../../../utils/img/Input-Background-Icon.svg");
@@ -12,6 +13,8 @@
     background-position: center;
     width: 40px;
     height: 100%;
+    opacity: 1;
+    transition: opacity 1s;
     &:hover {
       cursor: pointer;
     }
@@ -21,6 +24,7 @@
       background-position: center;
       width: 40px;
       height: 100%;
+      transition: opacity 1s;
       &:hover {
         cursor: pointer;
         opacity: 0.4;
@@ -31,6 +35,9 @@
     outline: none;
     border: 1px solid rgba(255, 255, 255, 0);
     width: 82.4%;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 500;
   }
   &_active {
     padding: 0%;
@@ -39,10 +46,16 @@
   &-btn {
     position: relative;
     height: 40px;
-    width: 64px;
-    display: none;
+    width: 0;
+    opacity: 0;
+    transition: width 0.5s ease-in-out 0.5s, opacity 0.5s;
     &_active {
-      display: block;
+      opacity: 1;
+      width: 64px;
+      transition: opacity 0.5s;
+      & div {
+        font-size: 16px !important;
+      }
     }
     &::before {
       z-index: 1;
@@ -78,7 +91,8 @@
       font-family: Inter, sans-serif;
       font-style: normal;
       font-weight: 500;
-      font-size: 16px;
+      font-size: 0;
+      transition: font-size 0.5s ease-in-out;
       &:active {
         background-color: rgba(247, 244, 249, 1);
         color: rgba(185, 174, 252, 1);
@@ -91,9 +105,13 @@
   .add_todo_block-btn {
     width: 50px;
     height: 35px;
+    &_active {
+      & div {
+        font-size: 15px !important;
+      }
+    }
     & div {
       line-height: 35px;
-      font-size: 15px;
     }
   }
 }

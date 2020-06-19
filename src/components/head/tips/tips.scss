@@ -1,6 +1,6 @@
 %tips {
   position: absolute;
-  width: 292px;
+  display: flex;
   height: 275.76px;
   left: -100%;
   top: 110%;
@@ -19,12 +19,19 @@
 .tips_block {
   @extend %tips;
 
-  display: none;
+  opacity: 0;
+  width: 0;
+  transition: width 0.5s ease-in-out 0.5s, opacity 0.5s;
+  &-tips {
+    display: none;
+  }
   &-active {
     @extend %tips;
 
+    transition: opacity 0.5s;
     z-index: 30;
-    display: flex;
+    width: 292px;
+    opacity: 1;
     &::before {
       position: absolute;
       display: block;
@@ -37,11 +44,12 @@
       transform: rotate(45deg);
       transition: all 0.4s ease-in-out;
     }
-  }
-  &-tips {
-    padding: 0% 10% 0% 10%;
-    line-height: 143%;
-    list-style-type: disc;
+    & .tips_block-tips {
+      display: block !important;
+      padding: 0% 10% 0% 10%;
+      line-height: 143%;
+      list-style-type: disc;
+    }
   }
   &-close_tips {
     background-image: url("../../../utils/img/Cross-Icon.svg");
@@ -74,8 +82,6 @@
 
 @media (max-width: 480px) {
   .tips_block-active {
-    width: 240px;
-    height: 310.76px;
     left: -500%;
     &::before {
       right: 23.8%;
