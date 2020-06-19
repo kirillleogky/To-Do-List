@@ -24,6 +24,12 @@
   transition: width 0.5s ease-in-out 0.5s, opacity 0.5s;
   &-tips {
     display: none;
+    & .input_icon {
+      margin: 0% 0% -3% 0%;
+    }
+    & .dnd_icon {
+      margin: 0% 2% 0% 1%;
+    }
   }
   &-active {
     @extend %tips;

@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import actions from "../../../actions";
+import dndIcon from "../../../utils/img/DND-Icon.svg";
+import inputIcon from "../../../utils/img/Input-Tips-Icon.svg";
 
 function addTips(props) {
   const isActiveTips = props.isShowTips ? "tips_block-active" : "tips_block";
@@ -12,16 +14,20 @@ function addTips(props) {
         onClick={() => props.setIsShowTips(!props.isShowTips)}
       />
       <ul className="tips_block-tips">
-        <li>To hide or show the input field, click on the button</li>
         <li>
-          To add a to-do list, write text in the input field and press Enter or
-          the button on the right
+          Click on
+          <img src={inputIcon} alt="icon" className="input_icon" />
+          or the input to focus on input. Pressing again will clear the input
+          and unfocus input
         </li>
+        <li>To add a todo click on &quot;Add&quot; button or press Enter</li>
+        <li>To delete todo click on trash icon</li>
+        <li>To delete all todo list, click &quot;Clear&quot;</li>
         <li>
-          To delete one item, hover over it and click on the trash can icon
+          Click on
+          <img src={dndIcon} alt="icon" className="dnd_icon" />
+          to drag the todo
         </li>
-        <li>To delete all to-do lists, click &quot;Clear&quot;</li>
-        <li>Click &quot;Save&quot; to save the to-do list</li>
       </ul>
     </div>
   );
