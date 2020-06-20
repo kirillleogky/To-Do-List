@@ -36,12 +36,18 @@ function App(props) {
 
   function addTodo(event) {
     event.preventDefault();
-    const todo = {
-      label: `${props.inputText}`,
-      isComplete: false,
-    };
+    const todo = { label: `${props.inputText}`, isComplete: false };
     props.setTodoList([todo, ...props.todoList]);
     props.setInputText("");
+  }
+
+  // Looking at click on the page and if click is not performed on the button "Add",
+  // input or input icon cleanup it does cleanup and blur
+  function checkInput() {
+    if (props.inputActiveClass !== "") {
+      props.setInputActiveClass("");
+      props.setInputText("");
+    }
   }
 
   // Set current todos into localStorage
@@ -53,6 +59,7 @@ function App(props) {
       <div
         id={`${props.isShowTips ? "focus_on_tips" : ""}`}
         className="todo_block"
+        onClick={checkInput}
       >
         <header>
           <Head />
@@ -82,6 +89,8 @@ App.propTypes = {
   setTodoList: PropTypes.func,
   setDoneTodos: PropTypes.func,
   setUndoneTodos: PropTypes.func,
+  setInputActiveClass: PropTypes.func,
+  inputActiveClass: PropTypes.string,
 };
 
 const mapStateToProps = (store) => {
@@ -92,6 +101,7 @@ const mapStateToProps = (store) => {
     doneTodos: store.doneTodos.data,
     undoneTodos: store.undoneTodos.data,
     todosType: store.todosType.data,
+    inputActiveClass: store.inputActiveClass.data,
   };
 };
 
@@ -101,6 +111,7 @@ const mapDispatchToProps = (dispatch) => {
     setTodoList: (data) => dispatch(actions.setTodoList(data)),
     setDoneTodos: (data) => dispatch(actions.setDoneTodos(data)),
     setUndoneTodos: (data) => dispatch(actions.setUndoneTodos(data)),
+    setInputActiveClass: (data) => dispatch(actions.setInputActiveClass(data)),
   };
 };
 
