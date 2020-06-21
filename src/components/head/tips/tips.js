@@ -15,18 +15,21 @@ function addTips(props) {
       />
       <ul className="tips_block-tips">
         <li>
-          Click on
+          Click on&nbsp;
           <img src={inputIcon} alt="icon" className="input_icon" />
-          or the input to focus on input. Pressing again will clear the input
-          and unfocus input
+          or&nbsp;the input to&nbsp;focus on&nbsp;input. Pressing again will
+          clear the input and unfocus input
         </li>
-        <li>To add a todo click on &quot;Add&quot; button or press Enter</li>
-        <li>To delete todo click on trash icon</li>
-        <li>To delete all todo list, click &quot;Clear&quot;</li>
         <li>
-          Click on
+          To&nbsp;add a&nbsp;todo click on&nbsp;&laquo;Add&raquo; button
+          or&nbsp;press Enter
+        </li>
+        <li>To&nbsp;delete todo click on&nbsp;trash icon</li>
+        <li>To&nbsp;delete all todo list, click &laquo;Clear&raquo;</li>
+        <li>
+          Click on&nbsp;
           <img src={dndIcon} alt="icon" className="dnd_icon" />
-          to drag the todo
+          to&nbsp;drag the todo
         </li>
       </ul>
     </div>
