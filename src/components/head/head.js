@@ -12,7 +12,13 @@ function Head(props) {
     <div className="todo_block-head">
       <h1 className="todo_block-head-title"> to-doooooo </h1>
       <div
-        onClick={() => props.setIsShowTips(!props.isShowTips)}
+        onClick={() => {
+          //Check if tips are active
+          //And if they are, then forbid to closing tips with click on the tips block and not on the closing tips button
+          if (!props.isShowTips) {
+            props.setIsShowTips(!props.isShowTips);
+          }
+        }}
         className={`${isActiveTips}`}
       >
         <Tips />
