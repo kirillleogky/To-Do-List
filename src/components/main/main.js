@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { DragDropContext } from "react-beautiful-dnd";
-import AddTodoInput from "./addTodoInput/addTodoInput";
-import AddTodos from "./todos/todos";
-import Navigation from "./navigation/navigation";
+import AddTodoInput from "./addTodoInput";
+import AddTodos from "./todos";
+import Navigation from "./navigation";
 
 export default function Main(props) {
   return (

@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import actions from "./actions";
 import "./App.scss";
-import Head from "./components/head/head";
-import Main from "./components/main/main";
+import Head from "./components/head";
+import Main from "./components/main";
 import onDragEnd from "./utils/onDragEnd";
 import onFilterTodos from "./utils/filterTodos";
 

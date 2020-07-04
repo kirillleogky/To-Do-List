@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import actions from "../../actions";
-import Tips from "./tips/tips";
+import Tips from "./tips";
 
 function Head(props) {
   const isActiveTips = props.isShowTips
