@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import actions from "./actions";
 import "./App.scss";
 import Head from "./components/head";
@@ -8,56 +8,62 @@ import Main from "./components/main";
 import onDragEnd from "./utils/onDragEnd";
 import onFilterTodos from "./utils/filterTodos";
 
-function App(props) {
-  const filterTodos = onFilterTodos(props);
+export default function App() {
+  const state = useSelector((state) => state);
+  const inputText = useSelector((state) => state.inputText.data);
+  const isShowTips = useSelector((state) => state.isShowTips.data);
+  const todoList = useSelector((state) => state.todoList.data);
+  const inputActiveClass = useSelector((state) => state.inputActiveClass.data);
+  const dispatch = useDispatch();
+
+  const filterTodos = onFilterTodos(state);
   function doneTodo(text) {
-    const currIndex = props.todoList.findIndex((todo) => todo.label === text);
-    const oldTodo = props.todoList[currIndex];
+    const currIndex = todoList.findIndex((todo) => todo.label === text);
+    const oldTodo = todoList[currIndex];
     const doneValue = !oldTodo.isComplete;
     const newTodoDone = { ...oldTodo, isComplete: doneValue };
-    const todoStart = props.todoList.slice(0, currIndex);
-    const todoEnd = props.todoList.slice(currIndex + 1);
+    const todoStart = todoList.slice(0, currIndex);
+    const todoEnd = todoList.slice(currIndex + 1);
     // Update All, Done, Undone Todos
-    const { payload: newTodos } = props.setTodoList([
-      ...todoStart,
-      newTodoDone,
-      ...todoEnd,
-    ]);
-    props.setDoneTodos(newTodos.filter((item) => item.isComplete));
-    props.setUndoneTodos(newTodos.filter((item) => !item.isComplete));
+    const { payload: newTodos } = dispatch(
+      actions.setTodoList([...todoStart, newTodoDone, ...todoEnd])
+    );
+    dispatch(actions.setDoneTodos(newTodos.filter((item) => item.isComplete)));
+    dispatch(
+      actions.setUndoneTodos(newTodos.filter((item) => !item.isComplete))
+    );
   }
 
   function deleteTodo(text) {
-    const delIndex = props.todoList.findIndex((todo) => todo.label === text);
-    const todoStart = props.todoList.slice(0, delIndex);
-    const todoEnd = props.todoList.slice(delIndex + 1);
-    props.setTodoList([...todoStart, ...todoEnd]);
+    const delIndex = todoList.findIndex((todo) => todo.label === text);
+    const todoStart = todoList.slice(0, delIndex);
+    const todoEnd = todoList.slice(delIndex + 1);
+    dispatch(actions.setTodoList([...todoStart, ...todoEnd]));
   }
 
   function addTodo(event) {
     event.preventDefault();
-    const todo = { label: `${props.inputText}`, isComplete: false };
-    props.setTodoList([todo, ...props.todoList]);
-    props.setInputText("");
+    const todo = { label: `${inputText}`, isComplete: false };
+    dispatch(actions.setTodoList([todo, ...todoList]));
+    dispatch(actions.setInputText(""));
   }
 
   // Looking at click on the page and if click is not performed on the button "Add",
   // input or input icon cleanup it does cleanup and blur
   function checkInput() {
-    if (props.inputActiveClass !== "") {
-      props.setInputActiveClass("");
-      props.setInputText("");
+    if (inputActiveClass !== "") {
+      dispatch(actions.setInputActiveClass(""));
     }
   }
 
   // Set current todos into localStorage
   localStorage.clear();
-  localStorage.setItem("todos", JSON.stringify(props.todoList));
+  localStorage.setItem("todos", JSON.stringify(todoList));
 
   return (
     <Fragment>
       <div
-        id={`${props.isShowTips ? "focus_on_tips" : ""}`}
+        id={`${isShowTips ? "focus_on_tips" : ""}`}
         className="todo_block"
         onClick={checkInput}
       >
@@ -67,7 +73,9 @@ function App(props) {
         <main>
           <Main
             onAddTodo={addTodo}
-            onDragEnd={(result) => onDragEnd(result, filterTodos, props)}
+            onDragEnd={(result) =>
+              onDragEnd(result, filterTodos, state, dispatch)
+            }
             onDeleteTodo={deleteTodo}
             onDoneTodo={doneTodo}
             todos={filterTodos}
@@ -82,37 +90,5 @@ App.propTypes = {
   inputText: PropTypes.string,
   isShowTips: PropTypes.bool,
   todoList: PropTypes.array,
-  doneTodos: PropTypes.array,
-  undoneTodos: PropTypes.array,
-  todosType: PropTypes.string,
-  setInputText: PropTypes.func,
-  setTodoList: PropTypes.func,
-  setDoneTodos: PropTypes.func,
-  setUndoneTodos: PropTypes.func,
-  setInputActiveClass: PropTypes.func,
   inputActiveClass: PropTypes.string,
 };
-
-const mapStateToProps = (store) => {
-  return {
-    inputText: store.inputText.data,
-    isShowTips: store.isShowTips.data,
-    todoList: store.todoList.data,
-    doneTodos: store.doneTodos.data,
-    undoneTodos: store.undoneTodos.data,
-    todosType: store.todosType.data,
-    inputActiveClass: store.inputActiveClass.data,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setInputText: (data) => dispatch(actions.setInputText(data)),
-    setTodoList: (data) => dispatch(actions.setTodoList(data)),
-    setDoneTodos: (data) => dispatch(actions.setDoneTodos(data)),
-    setUndoneTodos: (data) => dispatch(actions.setUndoneTodos(data)),
-    setInputActiveClass: (data) => dispatch(actions.setInputActiveClass(data)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);

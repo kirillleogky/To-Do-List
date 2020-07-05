@@ -1,30 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import actions from "../../../actions";
 
-function addTodoInputBtn(props) {
+export default function AddTodoInputBtn(props) {
+  const inputText = useSelector((state) => state.inputText.data);
+  const inputActiveClass = useSelector((state) => state.inputActiveClass.data);
+  const dispatch = useDispatch();
+
   const inputNode = React.createRef();
   function changeInputLogo() {
-    if (props.inputActiveClass === "") {
-      props.setInputActiveClass("_active");
+    dispatch(actions.setInputText(""));
+    if (inputActiveClass === "") {
+      dispatch(actions.setInputActiveClass("_active"));
       inputNode.current.focus();
       return;
     }
-    props.setInputActiveClass("");
-    props.setInputText("");
+    dispatch(actions.setInputActiveClass(""));
   }
   return (
     <form
       onSubmit={(e) => {
-        props.setInputActiveClass("");
+        dispatch(actions.setInputActiveClass(""));
         inputNode.current.blur();
         props.onAddTodo(e);
       }}
-      className={`todo_block-add_todo add_todo_block add_todo_block${props.inputActiveClass}`}
+      className={`todo_block-add_todo add_todo_block add_todo_block${inputActiveClass}`}
     >
       <div
-        className={`add_todo_block-icon${props.inputActiveClass}`}
+        className={`add_todo_block-icon${inputActiveClass}`}
         onClick={changeInputLogo}
       />
       <input
@@ -34,13 +38,13 @@ function addTodoInputBtn(props) {
         placeholder="Add List"
         className="add_todo_block-input"
         id="input"
-        value={props.inputText}
-        onChange={(e) => props.setInputText(e.target.value)}
+        value={inputText}
+        onChange={(e) => dispatch(actions.setInputText(e.target.value))}
         onClick={changeInputLogo}
       ></input>
       <button
         type="submit"
-        className={`add_todo_block-btn add_todo_block-btn${props.inputActiveClass}`}
+        className={`add_todo_block-btn add_todo_block-btn${inputActiveClass}`}
       >
         <div>Add</div>
       </button>
@@ -48,26 +52,8 @@ function addTodoInputBtn(props) {
   );
 }
 
-addTodoInputBtn.propTypes = {
+AddTodoInputBtn.propTypes = {
   inputText: PropTypes.string,
   inputActiveClass: PropTypes.string,
-  setInputText: PropTypes.func,
-  setInputActiveClass: PropTypes.func,
   onAddTodo: PropTypes.func,
 };
-
-const mapStateToProps = (store) => {
-  return {
-    inputText: store.inputText.data,
-    inputActiveClass: store.inputActiveClass.data,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setInputText: (data) => dispatch(actions.setInputText(data)),
-    setInputActiveClass: (data) => dispatch(actions.setInputActiveClass(data)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(addTodoInputBtn);

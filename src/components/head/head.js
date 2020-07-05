@@ -1,11 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import actions from "../../actions";
 import Tips from "./tips";
 
-function Head(props) {
-  const isActiveTips = props.isShowTips
+export default function Head() {
+  const isShowTips = useSelector((state) => state.isShowTips.data);
+  const dispatch = useDispatch();
+
+  const isActiveTips = isShowTips
     ? "todo_block-head-tips_btn_active"
     : "todo_block-head-tips_btn";
   return (
@@ -15,8 +18,8 @@ function Head(props) {
         onClick={() => {
           //Check if tips are active
           //And if they are, then forbid to closing tips with click on the tips block and not on the closing tips button
-          if (!props.isShowTips) {
-            props.setIsShowTips(!props.isShowTips);
+          if (!isShowTips) {
+            dispatch(actions.setIsShowTips(!isShowTips));
           }
         }}
         className={`${isActiveTips}`}
@@ -31,17 +34,3 @@ Head.propTypes = {
   isShowTips: PropTypes.bool,
   setIsShowTips: PropTypes.func,
 };
-
-const mapStateToProps = (store) => {
-  return {
-    isShowTips: store.isShowTips.data,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setIsShowTips: (data) => dispatch(actions.setIsShowTips(data)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Head);

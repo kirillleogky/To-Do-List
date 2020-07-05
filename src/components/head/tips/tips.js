@@ -1,17 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import actions from "../../../actions";
 import dndIcon from "../../../utils/img/DND-Icon.svg";
 import inputIcon from "../../../utils/img/Input-Tips-Icon.svg";
+import { useSelector, useDispatch } from "react-redux";
 
-function addTips(props) {
-  const isActiveTips = props.isShowTips ? "tips_block-active" : "tips_block";
+export default function AddTips() {
+  const isShowTips = useSelector((state) => state.isShowTips.data);
+  const dispatch = useDispatch();
+
+  const isActiveTips = isShowTips ? "tips_block-active" : "tips_block";
   return (
     <div className={`todo_block-head-tips ${isActiveTips}`}>
       <div
         className="tips_block-close_tips"
-        onClick={() => props.setIsShowTips(!props.isShowTips)}
+        onClick={() => dispatch(actions.setIsShowTips(!isShowTips))}
       />
       <ul className="tips_block-tips">
         <li>
@@ -36,21 +39,7 @@ function addTips(props) {
   );
 }
 
-addTips.propTypes = {
+AddTips.propTypes = {
   isShowTips: PropTypes.bool,
   setIsShowTips: PropTypes.func,
 };
-
-const mapStateToProps = (store) => {
-  return {
-    isShowTips: store.isShowTips.data,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setIsShowTips: (data) => dispatch(actions.setIsShowTips(data)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(addTips);

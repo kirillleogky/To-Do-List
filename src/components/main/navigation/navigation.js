@@ -1,21 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import actions from "../../../actions";
 
-function addNavigation(props) {
+export default function AddNavigation() {
+  const todoList = useSelector((state) => state.todoList.data);
+  const todosType = useSelector((state) => state.todosType.data);
+  const dispatch = useDispatch();
+
   let allBorders = "del_all_borders";
   let undoneBorders = "del_undone_borders";
-  if (props.todosType === "All") {
+  if (todosType === "All") {
     undoneBorders = "";
     allBorders = "del_all_borders";
-  } else if (props.todosType === "Undone") {
+  } else if (todosType === "Undone") {
     allBorders = "";
     undoneBorders = "del_undone_borders";
   }
   function addButton(className, func, text) {
     let activeTodo = "";
-    if (props.todosType === text) {
+    if (todosType === text) {
       activeTodo = "active_nav_btn";
     }
     return (
@@ -32,17 +36,17 @@ function addNavigation(props) {
         <div className="nav_block-list_todo_type">
           {addButton(
             `nav_block-list_todo_type_btn ${allBorders}`,
-            () => props.setTodosType("All"),
+            () => dispatch(actions.setTodosType("All")),
             "All"
           )}
 
           {addButton(
             "nav_block-list_todo_type_btn",
             () => {
-              props.setDoneTodos(
-                props.todoList.filter((item) => item.isComplete)
+              dispatch(
+                actions.setDoneTodos(todoList.filter((item) => item.isComplete))
               );
-              props.setTodosType("Done");
+              dispatch(actions.setTodosType("Done"));
             },
             "Done"
           )}
@@ -50,10 +54,12 @@ function addNavigation(props) {
           {addButton(
             `nav_block-list_todo_type_btn ${undoneBorders}`,
             () => {
-              props.setUndoneTodos(
-                props.todoList.filter((item) => !item.isComplete)
+              dispatch(
+                actions.setUndoneTodos(
+                  todoList.filter((item) => !item.isComplete)
+                )
               );
-              props.setTodosType("Undone");
+              dispatch(actions.setTodosType("Undone"));
             },
             "Undone"
           )}
@@ -62,7 +68,7 @@ function addNavigation(props) {
           "nav_block-clear",
           () => {
             localStorage.clear();
-            props.setTodoList([]);
+            dispatch(actions.setTodoList([]));
           },
           "Clear"
         )}
@@ -71,29 +77,7 @@ function addNavigation(props) {
   );
 }
 
-addNavigation.propTypes = {
+AddNavigation.propTypes = {
   todoList: PropTypes.array,
   todosType: PropTypes.string,
-  setTodoList: PropTypes.func,
-  setDoneTodos: PropTypes.func,
-  setUndoneTodos: PropTypes.func,
-  setTodosType: PropTypes.func,
 };
-
-const mapStateToProps = (store) => {
-  return {
-    todoList: store.todoList.data,
-    todosType: store.todosType.data,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setTodoList: (data) => dispatch(actions.setTodoList(data)),
-    setDoneTodos: (data) => dispatch(actions.setDoneTodos(data)),
-    setUndoneTodos: (data) => dispatch(actions.setUndoneTodos(data)),
-    setTodosType: (data) => dispatch(actions.setTodosType(data)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(addNavigation);
