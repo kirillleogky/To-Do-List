@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import actions from "../../../actions";
 
-export default function AddTodoInputBtn(props) {
+export default function AddTodoInputBtn({ onAddTodo }) {
   const inputText = useSelector((state) => state.inputText.data);
   const inputActiveClass = useSelector((state) => state.inputActiveClass.data);
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ export default function AddTodoInputBtn(props) {
       onSubmit={(e) => {
         dispatch(actions.setInputActiveClass(""));
         inputNode.current.blur();
-        props.onAddTodo(e);
+        onAddTodo(e);
       }}
       className={`todo_block-add_todo add_todo_block add_todo_block${inputActiveClass}`}
     >
