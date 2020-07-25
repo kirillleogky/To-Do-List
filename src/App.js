@@ -10,7 +10,6 @@ import onFilterTodos from "./utils/filterTodos";
 
 export default function App() {
   const state = useSelector((state) => state);
-  const inputText = useSelector((state) => state.inputText.data);
   const isShowTips = useSelector((state) => state.isShowTips.data);
   const todoList = useSelector((state) => state.todoList.data);
   const inputActiveClass = useSelector((state) => state.inputActiveClass.data);
@@ -41,11 +40,12 @@ export default function App() {
     dispatch(actions.setTodoList([...todoStart, ...todoEnd]));
   }
 
-  function addTodo(event) {
+  function addTodo(event, inputNode) {
+    const inputText = inputNode.current.value;
     event.preventDefault();
     const todo = { label: `${inputText}`, isComplete: false };
     dispatch(actions.setTodoList([todo, ...todoList]));
-    dispatch(actions.setInputText(""));
+    inputNode.current.value = "";
   }
 
   // Looking at click on the page and if click is not performed on the button "Add",
@@ -87,7 +87,6 @@ export default function App() {
 }
 
 App.propTypes = {
-  inputText: PropTypes.string,
   isShowTips: PropTypes.bool,
   todoList: PropTypes.array,
   inputActiveClass: PropTypes.string,
