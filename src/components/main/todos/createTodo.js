@@ -6,14 +6,29 @@ export default function createTodo(props) {
   const elem = props.todo;
   const index = props.index;
   return (
-    <Draggable draggableId={`draggable_todo_${index}`} index={index}>
+    <Draggable
+      draggableId={`draggable_todo_${index}`}
+      index={index}
+      disableInteractiveElementBlocking={true}
+    >
       {(provided, snapshot) => {
+        function getStyle(style, snapshot) {
+          if (!snapshot.isDropAnimating) {
+            return style;
+          }
+
+          return {
+            ...style,
+            boxSizing: `content-box`,
+          };
+        }
         const draggableElem = snapshot.isDragging ? "draggable_todo" : "";
         return (
           <li
             ref={provided.innerRef}
             {...provided.draggableProps}
             className={`todos_block-todo ${draggableElem}`}
+            style={getStyle(provided.draggableProps.style, snapshot)}
           >
             <div
               className={`todos_block-icon ${

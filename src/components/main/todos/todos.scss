@@ -4,10 +4,25 @@
   padding: 0% 5% 0% 5%;
   &-todo {
     height: 65px;
-    display: flex;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: 43px 1fr 31px 29px;
     align-items: center;
-    border-bottom: 1px solid rgba(247, 244, 249, 1);
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0%;
+      left: 1.4%;
+      border-bottom: 1px solid rgba(247, 244, 249, 1);
+      width: 96.6%;
+    }
+    &:last-child {
+      &::after {
+        content: "";
+        left: -10%;
+        width: 120%;
+      }
+    }
   }
   &-icon {
     background-image: url("../../../utils/img/Undone-Icon.svg");
@@ -16,19 +31,21 @@
     width: 40px;
     height: 100%;
     &_done {
-      background-image: url("../../../utils/img/Done-Icon.svg");
+      background-image: url("../../../utils/img/Done-Icon.svg") !important;
       background-position: 55% 50%;
     }
     &:hover {
+      background-image: url("../../../utils/img/Undone-Hover-Icon.svg");
       cursor: pointer;
     }
   }
   &-text {
-    width: 86.5%;
+    width: 85%;
     overflow: auto;
     font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: 500;
+    color: rgba(53, 30, 91, 1);
     &_done {
       color: rgba(6, 142, 96, 0.3);
     }
@@ -37,7 +54,7 @@
     background-image: url("../../../utils/img/Trash-Icon.svg");
     background-repeat: no-repeat;
     background-position: center;
-    width: 25px;
+    width: 31px;
     height: 50%;
     &:hover {
       cursor: pointer;
@@ -50,8 +67,8 @@
     background-image: url("../../../utils/img/DND-Icon.svg");
     background-repeat: no-repeat;
     background-position: center;
-    width: 19px;
-    height: 46%;
+    width: 21px;
+    height: 50%;
     border-radius: 6px;
     &:hover {
       cursor: pointer;
@@ -71,4 +88,7 @@
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 1);
   border-bottom: 1px solid rgba(247, 244, 249, 0) !important;
+  &::after {
+    width: 0%;
+  }
 }

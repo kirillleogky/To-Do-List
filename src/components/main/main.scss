@@ -12,6 +12,15 @@
   border-radius: 10px;
 }
 
+@supports (mask-image: paint(smooth-corners)) {
+  .todo_block-main.is-loaded {
+    border-radius: 0;
+    mask-image: paint(smooth-corners);
+
+    --smooth-corners: 10;
+  }
+}
+
 @media (max-width: 800px) {
   .todo_block-main {
     width: 79%;
