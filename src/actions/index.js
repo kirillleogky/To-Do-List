@@ -1,5 +1,5 @@
 const actions = {
-  setInputText: (data) => ({ type: "CHANGE_INPUT_TEXT_DATA", payload: data }),
+  setIsAuth: (data) => ({ type: "CHANGE_AUTH_DATA", payload: data }),
   setIsShowTips: (data) => ({ type: "CHANGE_SHOW_TIPS_DATA", payload: data }),
   setTodoList: (data) => ({ type: "CHANGE_TODO_LIST_DATA", payload: data }),
   setDoneTodos: (data) => ({ type: "CHANGE_DONE_TODOS_DATA", payload: data }),

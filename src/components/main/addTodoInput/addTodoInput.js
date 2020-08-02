@@ -9,7 +9,6 @@ export default function AddTodoInputBtn({ onAddTodo }) {
 
   const inputNode = React.createRef();
   function changeInputLogo() {
-    dispatch(actions.setInputText(""));
     if (inputActiveClass === "") {
       dispatch(actions.setInputActiveClass("_active"));
       inputNode.current.focus();
@@ -37,7 +36,6 @@ export default function AddTodoInputBtn({ onAddTodo }) {
         placeholder="Add List"
         className="add_todo_block-input"
         id="input"
-        onChange={(e) => dispatch(actions.setInputText(e.target.value))}
         onClick={changeInputLogo}
       ></input>
       <button

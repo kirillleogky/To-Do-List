@@ -1,5 +1,5 @@
 const first = {
-  data: "",
+  data: false,
 };
 
 const second = {
@@ -7,10 +7,7 @@ const second = {
 };
 
 const third = {
-  data: JSON.parse(localStorage.getItem("todos")) || [
-    { label: "Wash Kitchen", isComplete: false },
-    { label: "Go To Theater", isComplete: false },
-  ],
+  data: JSON.parse(localStorage.getItem("todos")) || [],
 };
 
 const fourth = {
@@ -29,9 +26,9 @@ const seventh = {
   data: "",
 };
 
-function inputText(state = first, action) {
+function isAuth(state = first, action) {
   switch (action.type) {
-    case "CHANGE_INPUT_TEXT_DATA":
+    case "CHANGE_AUTH_DATA":
       return { ...state, data: action.payload };
     default:
       return state;
@@ -93,7 +90,7 @@ function inputActiveClass(state = seventh, action) {
 }
 
 export default {
-  inputText,
+  isAuth,
   isShowTips,
   todoList,
   doneTodos,

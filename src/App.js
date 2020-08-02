@@ -5,15 +5,50 @@ import actions from "./actions";
 import "./App.scss";
 import Head from "./components/head";
 import Main from "./components/main";
+import Auth from "./components/main/auth";
 import onDragEnd from "./utils/onDragEnd";
 import onFilterTodos from "./utils/filterTodos";
+import * as firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
 
 export default function App() {
   const state = useSelector((state) => state);
   const isShowTips = useSelector((state) => state.isShowTips.data);
   const todoList = useSelector((state) => state.todoList.data);
   const inputActiveClass = useSelector((state) => state.inputActiveClass.data);
+  const isAuth = useSelector((state) => state.isAuth.data);
   const dispatch = useDispatch();
+
+  // Initial Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyDDrSWzQCjzpHlq77T3VYkut3vnxlQia4g",
+    authDomain: "to-do-list-c0409.firebaseapp.com",
+    databaseURL: "https://to-do-list-c0409.firebaseio.com",
+    projectId: "to-do-list-c0409",
+    storageBucket: "to-do-list-c0409.appspot.com",
+    messagingSenderId: "219696490030",
+    appId: "1:219696490030:web:74cd8b9bf880a97c7821bf",
+  };
+  !firebase.apps.length
+    ? firebase.initializeApp(firebaseConfig)
+    : firebase.app();
+
+  // Make Auth And Firestore References
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // Create Current User Id
+  let currentUser;
+
+  auth.onAuthStateChanged((user) => {
+    if (user && !isAuth) {
+      dispatch(actions.setIsAuth(true));
+    }
+    if (user) {
+      currentUser = user.uid;
+    }
+  });
 
   const filterTodos = onFilterTodos(state);
   function doneTodo(text) {
@@ -31,6 +66,12 @@ export default function App() {
     dispatch(
       actions.setUndoneTodos(newTodos.filter((item) => !item.isComplete))
     );
+    // Update Firestore Field
+    db.collection("todos")
+      .doc(currentUser)
+      .update({
+        user: [...newTodos],
+      });
   }
 
   function deleteTodo(text) {
@@ -38,6 +79,12 @@ export default function App() {
     const todoStart = todoList.slice(0, delIndex);
     const todoEnd = todoList.slice(delIndex + 1);
     dispatch(actions.setTodoList([...todoStart, ...todoEnd]));
+    // Update Firestore Field
+    db.collection("todos")
+      .doc(currentUser)
+      .update({
+        user: [...todoStart, ...todoEnd],
+      });
   }
 
   function addTodo(event, inputNode) {
@@ -46,6 +93,12 @@ export default function App() {
     const todo = { label: `${inputText}`, isComplete: false };
     dispatch(actions.setTodoList([todo, ...todoList]));
     inputNode.current.value = "";
+    // Update Firestore Field
+    db.collection("todos")
+      .doc(currentUser)
+      .update({
+        user: [todo, ...todoList],
+      });
   }
 
   // Looking at click on the page and if click is not performed on the button "Add",
@@ -71,15 +124,19 @@ export default function App() {
           <Head />
         </header>
         <main>
-          <Main
-            onAddTodo={addTodo}
-            onDragEnd={(result) =>
-              onDragEnd(result, filterTodos, state, dispatch)
-            }
-            onDeleteTodo={deleteTodo}
-            onDoneTodo={doneTodo}
-            todos={filterTodos}
-          />
+          {isAuth ? (
+            <Main
+              onAddTodo={addTodo}
+              onDragEnd={(result) =>
+                onDragEnd(result, filterTodos, state, dispatch)
+              }
+              onDeleteTodo={deleteTodo}
+              onDoneTodo={doneTodo}
+              todos={filterTodos}
+            />
+          ) : (
+            <Auth />
+          )}
         </main>
       </div>
     </Fragment>

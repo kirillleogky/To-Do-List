@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import actions from "../../../actions";
+import * as firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 
 export default function AddNavigation() {
   const todoList = useSelector((state) => state.todoList.data);
@@ -30,6 +33,19 @@ export default function AddNavigation() {
       </li>
     );
   }
+
+  // Make Auth And Firestore References
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // Get Current User Id
+  let currentUser;
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      currentUser = user.uid;
+    }
+  });
+
   return (
     <nav className="todos_block-main-nav nav_block">
       <ul className="nav_block-list">
@@ -69,6 +85,10 @@ export default function AddNavigation() {
           () => {
             localStorage.clear();
             dispatch(actions.setTodoList([]));
+            // Update Firestore Field
+            db.collection("todos").doc(currentUser).set({
+              user: [],
+            });
           },
           "Clear"
         )}
