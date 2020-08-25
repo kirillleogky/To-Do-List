@@ -1,0 +1,99 @@
+%tips {
+  position: absolute;
+  display: flex;
+  height: 245px;
+  left: -100%;
+  top: 125%;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 30px 84px rgba(52, 32, 91, 0.1), 0 0 24px rgba(52, 32, 91, 0.1),
+    inset 0 2px 1px rgba(117, 101, 89, 0.1);
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: flex-end;
+  color: rgba(53, 30, 91, 1);
+}
+
+.tips_block {
+  @extend %tips;
+
+  opacity: 0;
+  width: 0;
+  transition: width 0.5s ease-in-out 0.5s, opacity 0.5s;
+  &-tips {
+    display: none;
+    & .input_icon {
+      margin: 0% 0% -3% 0%;
+    }
+    & .dnd_icon {
+      margin: 0% 2% 0% 1%;
+    }
+  }
+  &-active {
+    @extend %tips;
+
+    transition: opacity 0.5s;
+    z-index: 30;
+    width: 292px;
+    opacity: 1;
+    &::before {
+      position: absolute;
+      display: block;
+      content: "";
+      bottom: 90%;
+      right: 78.5%;
+      width: 27px;
+      height: 27px;
+      background: rgba(255, 255, 255, 1);
+      transform: rotate(45deg);
+      transition: all 0.4s ease-in-out;
+      border-radius: 2px;
+    }
+    & .tips_block-tips {
+      display: block !important;
+      padding: 0% 10% 0% 13%;
+      line-height: 143%;
+      list-style-type: disc;
+    }
+  }
+  &-close_tips {
+    background-image: url("../../../utils/img/Cross-Icon.svg");
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 15px;
+    margin: 5% 3% 0% 0%;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.5;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .tips_block-active {
+    width: 240px;
+    height: 310.76px;
+    left: -160%;
+    &::before {
+      right: 66.6%;
+      bottom: 91%;
+      width: 27px;
+    }
+  }
+  .tips_block-tips {
+    padding: 0% 13% 0% 13%;
+  }
+}
+
+@media (max-width: 480px) {
+  .tips_block-active {
+    left: -500%;
+    &::before {
+      right: 23.8%;
+      bottom: 91.3%;
+    }
+  }
+}

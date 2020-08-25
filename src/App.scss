@@ -1,0 +1,73 @@
+@import "./components/main/main";
+@import "./components/head/head";
+@import "./utils/fonts/fonts";
+
+%overlay_background {
+  content: "";
+  position: absolute;
+  height: 100%;
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1)
+    ),
+    linear-gradient(
+      90deg,
+      rgba(161, 128, 255, 0.1) 0%,
+      rgba(230, 128, 255, 0.1) 33.85%,
+      rgba(255, 189, 128, 0.1) 69.79%,
+      rgba(255, 126, 126, 0.1) 100%
+    );
+  z-index: 30;
+}
+
+header {
+  height: 160px;
+  background: linear-gradient(
+      0deg,
+      rgba(143, 103, 210, 0.1),
+      rgba(143, 103, 210, 0.1)
+    ),
+    linear-gradient(
+      90deg,
+      #a180ff 0%,
+      #e680ff 33.85%,
+      #ffbd80 69.79%,
+      #ff7e7e 100%
+    );
+}
+
+main {
+  background-color: rgba(252, 248, 244, 1);
+  height: 748px;
+  display: flex;
+  justify-content: center;
+}
+
+.todo_block {
+  &::before {
+    @extend %overlay_background;
+
+    width: 0%;
+    opacity: 0;
+    transition: opacity 2s, width 0.1s ease-in-out 2s;
+  }
+}
+
+#focus_on_tips {
+  &::before {
+    @extend %overlay_background;
+
+    width: 100%;
+    opacity: 1;
+    transition: width 0.5s, opacity 1.5s ease-in-out 0.5s;
+  }
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 0;
+}

@@ -1,0 +1,94 @@
+.todos_block {
+  height: 500px;
+  overflow: auto;
+  padding: 0% 5% 0% 5%;
+  &-todo {
+    height: 65px;
+    display: grid;
+    grid-template-columns: 43px 1fr 31px 29px;
+    align-items: center;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0%;
+      left: 1.4%;
+      border-bottom: 1px solid rgba(247, 244, 249, 1);
+      width: 96.6%;
+    }
+    &:last-child {
+      &::after {
+        content: "";
+        left: -10%;
+        width: 120%;
+      }
+    }
+  }
+  &-icon {
+    background-image: url("../../../utils/img/Undone-Icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 100%;
+    &_done {
+      background-image: url("../../../utils/img/Done-Icon.svg") !important;
+      background-position: 55% 50%;
+    }
+    &:hover {
+      background-image: url("../../../utils/img/Undone-Hover-Icon.svg");
+      cursor: pointer;
+    }
+  }
+  &-text {
+    width: 85%;
+    overflow: auto;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    color: rgba(53, 30, 91, 1);
+    &_done {
+      color: rgba(6, 142, 96, 0.3);
+    }
+  }
+  &-trash {
+    background-image: url("../../../utils/img/Trash-Icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 31px;
+    height: 50%;
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(52, 32, 91, 0.1),
+        0 0 2px rgba(52, 32, 91, 0.1);
+      border-radius: 6px;
+    }
+  }
+  &-dnd {
+    background-image: url("../../../utils/img/DND-Icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 21px;
+    height: 50%;
+    border-radius: 6px;
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(52, 32, 91, 0.1),
+        0 0 2px rgba(52, 32, 91, 0.1);
+    }
+    &:active {
+      background: rgba(247, 244, 249, 1) url("../../../utils/img/DND-Icon.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+}
+
+.draggable_todo {
+  box-shadow: 0 10px 64px rgba(52, 32, 91, 0.1), 0 0 8px rgba(52, 32, 91, 0.1);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 1);
+  border-bottom: 1px solid rgba(247, 244, 249, 0) !important;
+  &::after {
+    width: 0%;
+  }
+}
