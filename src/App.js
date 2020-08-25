@@ -17,7 +17,6 @@ export default function App() {
   const isShowTips = useSelector((state) => state.isShowTips.data);
   const todoList = useSelector((state) => state.todoList.data);
   const inputActiveClass = useSelector((state) => state.inputActiveClass.data);
-  const isAuth = useSelector((state) => state.isAuth.data);
   const dispatch = useDispatch();
 
   // Initial Firebase
@@ -42,11 +41,14 @@ export default function App() {
   let currentUser;
 
   auth.onAuthStateChanged((user) => {
-    if (user && !isAuth) {
-      dispatch(actions.setIsAuth(true));
-    }
+    // if (user && !isAuth) {
+    //   dispatch(actions.setIsAuth(true));
+    // }
     if (user) {
       currentUser = user.uid;
+      localStorage.setItem("isAuthMain", JSON.stringify(true));
+    } else {
+      localStorage.setItem("isAuthMain", JSON.stringify(false));
     }
   });
 
@@ -110,7 +112,7 @@ export default function App() {
   }
 
   // Set current todos into localStorage
-  localStorage.clear();
+  localStorage.removeItem("todos");
   localStorage.setItem("todos", JSON.stringify(todoList));
 
   return (
@@ -124,7 +126,7 @@ export default function App() {
           <Head />
         </header>
         <main>
-          {isAuth ? (
+          {JSON.parse(localStorage.getItem("isAuthMain")) ? (
             <Main
               onAddTodo={addTodo}
               onDragEnd={(result) =>

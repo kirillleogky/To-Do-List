@@ -3,8 +3,73 @@ main {
 }
 
 .todo_block-auth {
-  height: 345px;
-  width: 17%;
+  width: 50%;
   display: grid;
   justify-items: center;
+}
+
+.auth_block {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  &-title {
+    font-weight: 900;
+    font-size: 60px;
+    line-height: 72px;
+    color: rgba(53, 30, 91, 1);
+    padding: 31px 5px 8px 0;
+  }
+  &-text {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(195, 183, 213, 1);
+    padding: 0 4px 30px 0;
+  }
+  &-btn {
+    width: 34%;
+    height: 56px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 36.5% 50%;
+    box-shadow: 0 0 2px rgba(52, 32, 91, 0.1), 0 4px 8px rgba(52, 32, 91, 0.1);
+    border-radius: 6px;
+    grid-column-gap: 8.7%;
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, 1);
+    user-select: none;
+    &-greeting_icon {
+      padding-right: 4px;
+      height: 124px;
+    }
+    &-google_icon {
+      justify-self: end;
+    }
+    &:hover {
+      cursor: pointer;
+      color: rgba(130, 114, 153, 1);
+    }
+    &:active {
+      box-shadow: none;
+      background-color: rgba(247, 244, 249, 1);
+      color: rgba(130, 114, 153, 1);
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .auth_block-btn {
+    width: 42%;
+  }
+}
+
+@media (max-width: 800px) {
+  .auth_block-btn {
+    width: 51%;
+  }
+}
+
+@media (max-width: 640px) {
+  .auth_block-btn {
+    width: 65%;
+  }
 }

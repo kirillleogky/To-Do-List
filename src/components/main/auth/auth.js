@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import actions from "../../../actions";
 import hand from "../../../utils/img/Hand-Icon.svg";
+import google from "../../../utils/img/Google-Icon.svg";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
@@ -59,7 +60,6 @@ export default function Auth() {
             }
             localStorage.setItem("todos", JSON.stringify(currentData));
             dispatch(actions.setTodoList([...currentData]));
-            dispatch(actions.setIsAuth(true));
           })
           .catch((error) => {
             window.console.log(error);
@@ -72,10 +72,13 @@ export default function Auth() {
 
   return (
     <div className="todo_block-auth auth_block">
-      <img src={hand} alt="Greeting" />
+      <img src={hand} alt="Greeting" className="auth_block-btn-greeting_icon" />
       <h2 className="auth_block-title">Hello</h2>
-      <p>Sign in with Google to start</p>
-      <div onClick={turnUp}>Sign In With Google</div>
+      <p className="auth_block-text">Sign in with Google to start</p>
+      <div className="auth_block-btn" onClick={turnUp}>
+        <img src={google} alt="Google" className="auth_block-btn-google_icon" />
+        <p className="auth_block-btn-text">Sign In</p>
+      </div>
     </div>
   );
 }
